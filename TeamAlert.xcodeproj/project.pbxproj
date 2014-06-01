@@ -1,0 +1,529 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		61035FA41933D38E00510ECD /* TeamAlertModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61035FA21933D38D00510ECD /* TeamAlertModel.xcdatamodeld */; };
+		6103603419340AA500510ECD /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6103603219340AA500510ECD /* AddressBook.framework */; };
+		6103603519340AA500510ECD /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6103603319340AA500510ECD /* AddressBookUI.framework */; };
+		610360461937F04F00510ECD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610360451937F04F00510ECD /* CoreData.framework */; };
+		612CDA20193BB8D4002178ED /* SCCNewTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */; };
+		617C6EC9190C5EC20036D3DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6EC8190C5EC20036D3DD /* Foundation.framework */; };
+		617C6ECB190C5EC20036D3DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6ECA190C5EC20036D3DD /* CoreGraphics.framework */; };
+		617C6ECD190C5EC20036D3DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6ECC190C5EC20036D3DD /* UIKit.framework */; };
+		617C6ED3190C5EC20036D3DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 617C6ED1190C5EC20036D3DD /* InfoPlist.strings */; };
+		617C6ED5190C5EC20036D3DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 617C6ED4190C5EC20036D3DD /* main.m */; };
+		617C6ED9190C5EC20036D3DD /* SCCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 617C6ED8190C5EC20036D3DD /* SCCAppDelegate.m */; };
+		617C6EDC190C5EC20036D3DD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 617C6EDA190C5EC20036D3DD /* Main_iPhone.storyboard */; };
+		617C6EDF190C5EC20036D3DD /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 617C6EDD190C5EC20036D3DD /* Main_iPad.storyboard */; };
+		617C6EE2190C5EC20036D3DD /* SCCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 617C6EE1190C5EC20036D3DD /* SCCMasterViewController.m */; };
+		617C6EE5190C5EC20036D3DD /* SCCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 617C6EE4190C5EC20036D3DD /* SCCDetailViewController.m */; };
+		617C6EE7190C5EC20036D3DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 617C6EE6190C5EC20036D3DD /* Images.xcassets */; };
+		617C6EEE190C5EC20036D3DD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6EED190C5EC20036D3DD /* XCTest.framework */; };
+		617C6EEF190C5EC20036D3DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6EC8190C5EC20036D3DD /* Foundation.framework */; };
+		617C6EF0190C5EC20036D3DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6ECC190C5EC20036D3DD /* UIKit.framework */; };
+		617C6EF8190C5EC20036D3DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 617C6EF6190C5EC20036D3DD /* InfoPlist.strings */; };
+		617C6EFA190C5EC20036D3DD /* TeamAlertTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		617C6EF1190C5EC20036D3DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 617C6EBD190C5EC20036D3DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 617C6EC4190C5EC20036D3DD;
+			remoteInfo = TeamAlert;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		61035FA31933D38E00510ECD /* TeamAlertModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TeamAlertModel.xcdatamodel; sourceTree = "<group>"; };
+		6103603219340AA500510ECD /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		6103603319340AA500510ECD /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		610360451937F04F00510ECD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		612CDA1E193BB8D4002178ED /* SCCNewTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCNewTeamTableViewController.h; sourceTree = "<group>"; };
+		612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCNewTeamTableViewController.m; sourceTree = "<group>"; };
+		617C6EC5190C5EC20036D3DD /* TeamAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		617C6EC8190C5EC20036D3DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		617C6ECA190C5EC20036D3DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		617C6ECC190C5EC20036D3DD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		617C6ED0190C5EC20036D3DD /* TeamAlert-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamAlert-Info.plist"; sourceTree = "<group>"; };
+		617C6ED2190C5EC20036D3DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		617C6ED4190C5EC20036D3DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		617C6ED6190C5EC20036D3DD /* TeamAlert-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamAlert-Prefix.pch"; sourceTree = "<group>"; };
+		617C6ED7190C5EC20036D3DD /* SCCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCAppDelegate.h; sourceTree = "<group>"; };
+		617C6ED8190C5EC20036D3DD /* SCCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCCAppDelegate.m; sourceTree = "<group>"; };
+		617C6EDB190C5EC20036D3DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		617C6EDE190C5EC20036D3DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		617C6EE0190C5EC20036D3DD /* SCCMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCMasterViewController.h; sourceTree = "<group>"; };
+		617C6EE1190C5EC20036D3DD /* SCCMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCCMasterViewController.m; sourceTree = "<group>"; };
+		617C6EE3190C5EC20036D3DD /* SCCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCDetailViewController.h; sourceTree = "<group>"; };
+		617C6EE4190C5EC20036D3DD /* SCCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCCDetailViewController.m; sourceTree = "<group>"; };
+		617C6EE6190C5EC20036D3DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		617C6EEC190C5EC20036D3DD /* TeamAlertTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeamAlertTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		617C6EED190C5EC20036D3DD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		617C6EF5190C5EC20036D3DD /* TeamAlertTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamAlertTests-Info.plist"; sourceTree = "<group>"; };
+		617C6EF7190C5EC20036D3DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamAlertTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		617C6EC2190C5EC20036D3DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				610360461937F04F00510ECD /* CoreData.framework in Frameworks */,
+				6103603419340AA500510ECD /* AddressBook.framework in Frameworks */,
+				6103603519340AA500510ECD /* AddressBookUI.framework in Frameworks */,
+				617C6ECB190C5EC20036D3DD /* CoreGraphics.framework in Frameworks */,
+				617C6ECD190C5EC20036D3DD /* UIKit.framework in Frameworks */,
+				617C6EC9190C5EC20036D3DD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		617C6EE9190C5EC20036D3DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				617C6EEE190C5EC20036D3DD /* XCTest.framework in Frameworks */,
+				617C6EF0190C5EC20036D3DD /* UIKit.framework in Frameworks */,
+				617C6EEF190C5EC20036D3DD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		617C6EBC190C5EC20036D3DD = {
+			isa = PBXGroup;
+			children = (
+				617C6ECE190C5EC20036D3DD /* TeamAlert */,
+				617C6EF3190C5EC20036D3DD /* TeamAlertTests */,
+				617C6EC7190C5EC20036D3DD /* Frameworks */,
+				617C6EC6190C5EC20036D3DD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		617C6EC6190C5EC20036D3DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				617C6EC5190C5EC20036D3DD /* TeamAlert.app */,
+				617C6EEC190C5EC20036D3DD /* TeamAlertTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		617C6EC7190C5EC20036D3DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				610360451937F04F00510ECD /* CoreData.framework */,
+				6103603219340AA500510ECD /* AddressBook.framework */,
+				6103603319340AA500510ECD /* AddressBookUI.framework */,
+				617C6EC8190C5EC20036D3DD /* Foundation.framework */,
+				617C6ECA190C5EC20036D3DD /* CoreGraphics.framework */,
+				617C6ECC190C5EC20036D3DD /* UIKit.framework */,
+				617C6EED190C5EC20036D3DD /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		617C6ECE190C5EC20036D3DD /* TeamAlert */ = {
+			isa = PBXGroup;
+			children = (
+				617C6ED7190C5EC20036D3DD /* SCCAppDelegate.h */,
+				617C6ED8190C5EC20036D3DD /* SCCAppDelegate.m */,
+				617C6EDA190C5EC20036D3DD /* Main_iPhone.storyboard */,
+				61035FA21933D38D00510ECD /* TeamAlertModel.xcdatamodeld */,
+				612CDA1E193BB8D4002178ED /* SCCNewTeamTableViewController.h */,
+				612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */,
+				617C6EDD190C5EC20036D3DD /* Main_iPad.storyboard */,
+				617C6EE0190C5EC20036D3DD /* SCCMasterViewController.h */,
+				617C6EE1190C5EC20036D3DD /* SCCMasterViewController.m */,
+				617C6EE3190C5EC20036D3DD /* SCCDetailViewController.h */,
+				617C6EE4190C5EC20036D3DD /* SCCDetailViewController.m */,
+				617C6EE6190C5EC20036D3DD /* Images.xcassets */,
+				617C6ECF190C5EC20036D3DD /* Supporting Files */,
+			);
+			path = TeamAlert;
+			sourceTree = "<group>";
+		};
+		617C6ECF190C5EC20036D3DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				617C6ED0190C5EC20036D3DD /* TeamAlert-Info.plist */,
+				617C6ED1190C5EC20036D3DD /* InfoPlist.strings */,
+				617C6ED4190C5EC20036D3DD /* main.m */,
+				617C6ED6190C5EC20036D3DD /* TeamAlert-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		617C6EF3190C5EC20036D3DD /* TeamAlertTests */ = {
+			isa = PBXGroup;
+			children = (
+				617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */,
+				617C6EF4190C5EC20036D3DD /* Supporting Files */,
+			);
+			path = TeamAlertTests;
+			sourceTree = "<group>";
+		};
+		617C6EF4190C5EC20036D3DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				617C6EF5190C5EC20036D3DD /* TeamAlertTests-Info.plist */,
+				617C6EF6190C5EC20036D3DD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		617C6EC4190C5EC20036D3DD /* TeamAlert */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 617C6EFD190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlert" */;
+			buildPhases = (
+				617C6EC1190C5EC20036D3DD /* Sources */,
+				617C6EC2190C5EC20036D3DD /* Frameworks */,
+				617C6EC3190C5EC20036D3DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TeamAlert;
+			productName = TeamAlert;
+			productReference = 617C6EC5190C5EC20036D3DD /* TeamAlert.app */;
+			productType = "com.apple.product-type.application";
+		};
+		617C6EEB190C5EC20036D3DD /* TeamAlertTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 617C6F00190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlertTests" */;
+			buildPhases = (
+				617C6EE8190C5EC20036D3DD /* Sources */,
+				617C6EE9190C5EC20036D3DD /* Frameworks */,
+				617C6EEA190C5EC20036D3DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				617C6EF2190C5EC20036D3DD /* PBXTargetDependency */,
+			);
+			name = TeamAlertTests;
+			productName = TeamAlertTests;
+			productReference = 617C6EEC190C5EC20036D3DD /* TeamAlertTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		617C6EBD190C5EC20036D3DD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SCC;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Soccer Coach Coach";
+				TargetAttributes = {
+					617C6EEB190C5EC20036D3DD = {
+						TestTargetID = 617C6EC4190C5EC20036D3DD;
+					};
+				};
+			};
+			buildConfigurationList = 617C6EC0190C5EC20036D3DD /* Build configuration list for PBXProject "TeamAlert" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 617C6EBC190C5EC20036D3DD;
+			productRefGroup = 617C6EC6190C5EC20036D3DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				617C6EC4190C5EC20036D3DD /* TeamAlert */,
+				617C6EEB190C5EC20036D3DD /* TeamAlertTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		617C6EC3190C5EC20036D3DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				617C6EDF190C5EC20036D3DD /* Main_iPad.storyboard in Resources */,
+				617C6EE7190C5EC20036D3DD /* Images.xcassets in Resources */,
+				617C6EDC190C5EC20036D3DD /* Main_iPhone.storyboard in Resources */,
+				617C6ED3190C5EC20036D3DD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		617C6EEA190C5EC20036D3DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				617C6EF8190C5EC20036D3DD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		617C6EC1190C5EC20036D3DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				617C6ED9190C5EC20036D3DD /* SCCAppDelegate.m in Sources */,
+				617C6ED5190C5EC20036D3DD /* main.m in Sources */,
+				612CDA20193BB8D4002178ED /* SCCNewTeamTableViewController.m in Sources */,
+				617C6EE2190C5EC20036D3DD /* SCCMasterViewController.m in Sources */,
+				617C6EE5190C5EC20036D3DD /* SCCDetailViewController.m in Sources */,
+				61035FA41933D38E00510ECD /* TeamAlertModel.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		617C6EE8190C5EC20036D3DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				617C6EFA190C5EC20036D3DD /* TeamAlertTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		617C6EF2190C5EC20036D3DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 617C6EC4190C5EC20036D3DD /* TeamAlert */;
+			targetProxy = 617C6EF1190C5EC20036D3DD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		617C6ED1190C5EC20036D3DD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				617C6ED2190C5EC20036D3DD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		617C6EDA190C5EC20036D3DD /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				617C6EDB190C5EC20036D3DD /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		617C6EDD190C5EC20036D3DD /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				617C6EDE190C5EC20036D3DD /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		617C6EF6190C5EC20036D3DD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				617C6EF7190C5EC20036D3DD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		617C6EFB190C5EC20036D3DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		617C6EFC190C5EC20036D3DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		617C6EFE190C5EC20036D3DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
+				INFOPLIST_FILE = "TeamAlert/TeamAlert-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		617C6EFF190C5EC20036D3DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
+				INFOPLIST_FILE = "TeamAlert/TeamAlert-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		617C6F01190C5EC20036D3DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamAlert.app/TeamAlert";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "TeamAlertTests/TeamAlertTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		617C6F02190C5EC20036D3DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamAlert.app/TeamAlert";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
+				INFOPLIST_FILE = "TeamAlertTests/TeamAlertTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		617C6EC0190C5EC20036D3DD /* Build configuration list for PBXProject "TeamAlert" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				617C6EFB190C5EC20036D3DD /* Debug */,
+				617C6EFC190C5EC20036D3DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		617C6EFD190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlert" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				617C6EFE190C5EC20036D3DD /* Debug */,
+				617C6EFF190C5EC20036D3DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		617C6F00190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlertTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				617C6F01190C5EC20036D3DD /* Debug */,
+				617C6F02190C5EC20036D3DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		61035FA21933D38D00510ECD /* TeamAlertModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				61035FA31933D38E00510ECD /* TeamAlertModel.xcdatamodel */,
+			);
+			currentVersion = 61035FA31933D38E00510ECD /* TeamAlertModel.xcdatamodel */;
+			path = TeamAlertModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 617C6EBD190C5EC20036D3DD /* Project object */;
+}
