@@ -7,8 +7,8 @@
         <relationship name="memberships" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
     </entity>
     <entity name="Membership" syncable="YES">
-        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="phoneNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contactInfo" attributeType="String" syncable="YES"/>
+        <attribute name="contactType" attributeType="String" syncable="YES"/>
         <relationship name="contact" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="memberships" inverseEntity="Contact" syncable="YES"/>
         <relationship name="team" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="members" inverseEntity="Team" syncable="YES"/>
     </entity>

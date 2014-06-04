@@ -213,11 +213,17 @@
     [newMember setValue:firstName forKey:@"firstName"];
     [newMember setValue:lastName  forKey:@"lastName"];
 
-    NSManagedObject *newMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
-    
-    [newMembership setValue:phone     forKey:@"phoneNumber"];
-    [newMembership setValue:email     forKey:@"email"];
-    [newMembership setValue:newMember forKey:@"contact"];
+    NSManagedObject *newPhoneMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
+
+    [newPhoneMembership setValue:phone          forKey:@"contactInfo"];
+    [newPhoneMembership setValue:@"phoneNumber" forKey:@"contactType"];
+    [newPhoneMembership setValue:newMember      forKey:@"contact"];
+
+    NSManagedObject *newEmailMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
+
+    [newEmailMembership setValue:email     forKey:@"contactInfo"];
+    [newEmailMembership setValue:@"email"  forKey:@"contactType"];
+    [newEmailMembership setValue:newMember forKey:@"contact"];
     
     return newMember;
 }
