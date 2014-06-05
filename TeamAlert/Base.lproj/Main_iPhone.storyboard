@@ -170,7 +170,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="JYy-E2-LCd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="7yM-kk-Znu"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="7yM-kk-Znu">
+                            <connections>
+                                <action selector="saveTeam:" destination="MWj-HT-K2f" id="3Za-t8-r71"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="teamNameTextField" destination="Tas-pR-I9A" id="MIe-SC-u4j"/>

@@ -250,9 +250,37 @@
 {
     NSCharacterSet * whitespaceSet = [NSCharacterSet whitespaceCharacterSet];
     // All you need is love, or in this case, members and a name
-    NSLog(@"trimmed name %@", [self.teamNameTextField.text stringByTrimmingCharactersInSet:whitespaceSet]);
     return
         [self.members count] > 0 &&
         [[self.teamNameTextField.text stringByTrimmingCharactersInSet:whitespaceSet] length] > 0;
 }
+
+- (IBAction)saveTeam:(id)sender {
+    // This should always be true
+    if( [self isTeamSaveable] ) {
+        NSString *teamName = self.teamNameTextField.text;
+        NSManagedObjectContext *context = [self managedObjectContext];
+
+        NSManagedObject *newTeam = [NSEntityDescription insertNewObjectForEntityForName:@"Team" inManagedObjectContext:context];
+        [newTeam setValue:teamName forKey:@"name"];
+
+        for (NSManagedObject *member in self.members) {
+            for (NSManagedObject *membership in [member valueForKey:@"memberships"]) {
+                [membership setValue:newTeam forKey:@"team"];
+            }
+        }
+
+        NSError *saveError = nil;
+        if (![context save:&saveError]) {
+            NSLog(@"Could not save new team: %@, %@", saveError, [saveError localizedDescription]);
+        }
+
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        NSLog(@"An attempt was made to save a new team from an unexpected state");
+    }
+
+}
+
 @end
