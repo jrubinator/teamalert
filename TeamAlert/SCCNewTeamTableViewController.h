@@ -12,5 +12,6 @@
 
 @interface SCCNewTeamTableViewController : UITableViewController <ABPeoplePickerNavigationControllerDelegate>
 - (IBAction)addContact:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *teamNameTextField;
 
 @end

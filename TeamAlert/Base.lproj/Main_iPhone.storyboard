@@ -169,7 +169,12 @@
                             <outlet property="delegate" destination="MWj-HT-K2f" id="hMV-GK-2dU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="JYy-E2-LCd"/>
+                    <navigationItem key="navigationItem" id="JYy-E2-LCd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="7yM-kk-Znu"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="teamNameTextField" destination="Tas-pR-I9A" id="MIe-SC-u4j"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DQT-oz-2o3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

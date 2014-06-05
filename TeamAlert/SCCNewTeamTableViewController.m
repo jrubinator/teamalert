@@ -28,11 +28,24 @@
 {
     [super viewDidLoad];
     
+    // Monitor the name field so we know when the team can be saved
+    [[self teamNameTextField] addTarget:self
+                                action:@selector(maybeEnableDoneButton)
+                      forControlEvents:UIControlEventEditingChanged];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    // We'll also need to check when contacts are removed, but hey!
+    self.navigationItem.rightBarButtonItem.enabled = [self isTeamSaveable];
 }
 
 - (void)didReceiveMemoryWarning
@@ -226,5 +239,20 @@
     [newEmailMembership setValue:newMember forKey:@"contact"];
     
     return newMember;
+}
+
+- (void)maybeEnableDoneButton
+{
+    self.navigationItem.rightBarButtonItem.enabled = [self isTeamSaveable];
+}
+
+- (BOOL)isTeamSaveable
+{
+    NSCharacterSet * whitespaceSet = [NSCharacterSet whitespaceCharacterSet];
+    // All you need is love, or in this case, members and a name
+    NSLog(@"trimmed name %@", [self.teamNameTextField.text stringByTrimmingCharactersInSet:whitespaceSet]);
+    return
+        [self.members count] > 0 &&
+        [[self.teamNameTextField.text stringByTrimmingCharactersInSet:whitespaceSet] length] > 0;
 }
 @end
