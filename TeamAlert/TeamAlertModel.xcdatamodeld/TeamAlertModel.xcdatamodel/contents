@@ -10,15 +10,15 @@
         <attribute name="contactInfo" attributeType="String" syncable="YES"/>
         <attribute name="contactType" attributeType="String" syncable="YES"/>
         <relationship name="contact" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="memberships" inverseEntity="Contact" syncable="YES"/>
-        <relationship name="team" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="members" inverseEntity="Team" syncable="YES"/>
+        <relationship name="team" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="memberships" inverseEntity="Team" syncable="YES"/>
     </entity>
     <entity name="Team" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="members" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="team" inverseEntity="Membership" syncable="YES"/>
+        <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="team" inverseEntity="Membership" syncable="YES"/>
     </entity>
     <elements>
         <element name="Contact" positionX="-387" positionY="-7" width="128" height="103"/>
-        <element name="Team" positionX="-54" positionY="9" width="128" height="73"/>
         <element name="Membership" positionX="-198" positionY="63" width="128" height="103"/>
+        <element name="Team" positionX="-54" positionY="9" width="128" height="75"/>
     </elements>
 </model>
