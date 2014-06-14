@@ -5,6 +5,9 @@
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="memberships" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
+        <fetchedProperty name="teams" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Team" predicateString="ANY memberships.contact = $FETCH_SOURCE"/>
+        </fetchedProperty>
     </entity>
     <entity name="Membership" syncable="YES">
         <attribute name="contactInfo" attributeType="String" syncable="YES"/>
@@ -15,10 +18,13 @@
     <entity name="Team" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="team" inverseEntity="Membership" syncable="YES"/>
+        <fetchedProperty name="contacts" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Contact" predicateString="ANY memberships.team = $FETCH_SOURCE"/>
+        </fetchedProperty>
     </entity>
     <elements>
-        <element name="Contact" positionX="-387" positionY="-7" width="128" height="103"/>
+        <element name="Contact" positionX="-387" positionY="-7" width="128" height="131"/>
         <element name="Membership" positionX="-198" positionY="63" width="128" height="103"/>
-        <element name="Team" positionX="-54" positionY="9" width="128" height="75"/>
+        <element name="Team" positionX="-54" positionY="9" width="128" height="101"/>
     </elements>
 </model>
