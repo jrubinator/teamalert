@@ -85,10 +85,13 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_teams removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        // Delete an object form the database
+        NSManagedObject *team = [_teams objectAtIndex:indexPath.row];
+        if ( [self deleteTeam:team]) {
+            // And delete it from the UI
+            [_teams removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
 }
 
@@ -132,6 +135,31 @@
         context = [delegate managedObjectContext];
     }
     return context;
+}
+
+- (BOOL)deleteTeam:(NSManagedObject *)team {
+
+    NSManagedObjectContext *context = [self managedObjectContext];
+
+    for ( NSManagedObject *contact in [team valueForKey:@"contacts"] ) {
+        // Delete the contact if they have no other teams
+        if ( [[contact valueForKey:@"teams"] count] == 1 ) {
+            [context deleteObject:contact];
+        }
+    }
+
+    for ( NSManagedObject *membership in [team valueForKey:@"memberships"] ) {
+
+        [context deleteObject:membership];
+    }
+
+    NSError *error = nil;
+    if ( ![context save:&error] ) {
+        NSLog(@"Cannot Delete! %@ %@", error, [error localizedDescription]);
+        return NO;
+    }
+
+    return YES;
 }
 
 @end
