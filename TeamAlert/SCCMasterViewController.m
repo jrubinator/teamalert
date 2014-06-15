@@ -153,6 +153,8 @@
         [context deleteObject:membership];
     }
 
+    [context deleteObject:team];
+
     NSError *error = nil;
     if ( ![context save:&error] ) {
         NSLog(@"Cannot Delete! %@ %@", error, [error localizedDescription]);
