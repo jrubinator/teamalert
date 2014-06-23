@@ -12,6 +12,7 @@
 		6103603519340AA500510ECD /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6103603319340AA500510ECD /* AddressBookUI.framework */; };
 		610360461937F04F00510ECD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610360451937F04F00510ECD /* CoreData.framework */; };
 		612CDA20193BB8D4002178ED /* SCCNewTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */; };
+		617089081958E40400EB23A3 /* SCCTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 617089071958E40400EB23A3 /* SCCTeamTableViewController.m */; };
 		617C6EC9190C5EC20036D3DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6EC8190C5EC20036D3DD /* Foundation.framework */; };
 		617C6ECB190C5EC20036D3DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6ECA190C5EC20036D3DD /* CoreGraphics.framework */; };
 		617C6ECD190C5EC20036D3DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6ECC190C5EC20036D3DD /* UIKit.framework */; };
@@ -47,6 +48,8 @@
 		610360451937F04F00510ECD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		612CDA1E193BB8D4002178ED /* SCCNewTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCNewTeamTableViewController.h; sourceTree = "<group>"; };
 		612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCNewTeamTableViewController.m; sourceTree = "<group>"; };
+		617089061958E40400EB23A3 /* SCCTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCTeamTableViewController.h; sourceTree = "<group>"; };
+		617089071958E40400EB23A3 /* SCCTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCTeamTableViewController.m; sourceTree = "<group>"; };
 		617C6EC5190C5EC20036D3DD /* TeamAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		617C6EC8190C5EC20036D3DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		617C6ECA190C5EC20036D3DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -134,6 +137,8 @@
 		617C6ECE190C5EC20036D3DD /* TeamAlert */ = {
 			isa = PBXGroup;
 			children = (
+				617089061958E40400EB23A3 /* SCCTeamTableViewController.h */,
+				617089071958E40400EB23A3 /* SCCTeamTableViewController.m */,
 				617C6ED7190C5EC20036D3DD /* SCCAppDelegate.h */,
 				617C6ED8190C5EC20036D3DD /* SCCAppDelegate.m */,
 				617C6EDA190C5EC20036D3DD /* Main_iPhone.storyboard */,
@@ -283,6 +288,7 @@
 				617C6ED5190C5EC20036D3DD /* main.m in Sources */,
 				612CDA20193BB8D4002178ED /* SCCNewTeamTableViewController.m in Sources */,
 				617C6EE2190C5EC20036D3DD /* SCCMasterViewController.m in Sources */,
+				617089081958E40400EB23A3 /* SCCTeamTableViewController.m in Sources */,
 				617C6EE5190C5EC20036D3DD /* SCCDetailViewController.m in Sources */,
 				61035FA41933D38E00510ECD /* TeamAlertModel.xcdatamodeld in Sources */,
 			);

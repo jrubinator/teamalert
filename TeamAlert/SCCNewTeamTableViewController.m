@@ -9,7 +9,6 @@
 #import "SCCNewTeamTableViewController.h"
 
 @interface SCCNewTeamTableViewController ()
-@property (strong) NSMutableArray * members;
 
 @end
 
@@ -54,95 +53,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Just a simple list of contacts
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-   
-    NSInteger cnt = [[self members] count];
-     NSLog(@"counting members %d", cnt);
-    return [[self members] count];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Contact" forIndexPath:indexPath];
-    
-    // Configure the cell...
-    NSObject *member = [self.members objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@", [member valueForKey:@"firstName"], [member valueForKey:@"lastName"]]];
-    //[cell.detailTextLabel setText:[member valueForKey:@"phoneNumber"]];
-    
-    return cell;
-}
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (NSManagedObjectContext *)managedObjectContext {
-    NSManagedObjectContext *context = nil;
-    id delegate = [[UIApplication sharedApplication] delegate];
-    if ([delegate performSelector:@selector(managedObjectContext)] ) {
-        context = [delegate managedObjectContext];
-    }
-    return context;
-}
-
-
 #pragma mark - Adding a contact
 - (IBAction)addContact:(id)sender {
     ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
@@ -179,8 +89,6 @@
     return NO;
 }
 
-
-
 - (void)inductContact:(ABRecordRef)person
 {
     NSManagedObject * newMember = [self makeMemberFromContact:person];
@@ -188,10 +96,9 @@
     if ( ![self members] ) {
         self.members = [[NSMutableArray alloc] init];
     }
-    NSLog(@"new member %@", newMember);
-    NSLog(@"members are %@", [self members]);
+
     [[self members] addObject:newMember];
-    NSLog(@"member count is %d", [[self members] count]);
+
     [[self tableView] reloadData];
     
 }

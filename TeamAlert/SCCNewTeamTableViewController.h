@@ -6,11 +6,10 @@
 //  Copyright (c) 2014 Soccer Coach Coach. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <AddressBookUI/AddressBookUI.h>
-#import <CoreData/CoreData.h>
 
-@interface SCCNewTeamTableViewController : UITableViewController <ABPeoplePickerNavigationControllerDelegate>
+#import "SCCTeamTableViewController.h"
+
+@interface SCCNewTeamTableViewController : SCCTeamTableViewController <ABPeoplePickerNavigationControllerDelegate>
 - (IBAction)addContact:(id)sender;
 - (IBAction)saveTeam:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *teamNameTextField;
