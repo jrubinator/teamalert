@@ -9,6 +9,7 @@
 #import "SCCViewTeamTableViewController.h"
 
 @interface SCCViewTeamTableViewController ()
+@property (strong) NSManagedObject * team;
 
 @end
 
@@ -26,6 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [[self navigationItem] setTitle:[self.team valueForKey:@"name"]];
+
     // Do any additional setup after loading the view.
 }
 
@@ -48,6 +52,7 @@
 
 - (void)setDetailItem:(NSManagedObject *)team
 {
+    self.team    = team;
     self.members = [NSMutableArray arrayWithArray:[[team valueForKey:@"contacts"] allObjects]];
 }
 

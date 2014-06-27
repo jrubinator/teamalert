@@ -59,7 +59,8 @@
                     <toolbarItems>
                         <barButtonItem title="Item" id="FPo-Rm-xaE"/>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" title="Master" id="tQt-TN-PWz">
+                    <navigationItem key="navigationItem" title="Team Alert" id="tQt-TN-PWz">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="qmU-Dn-ugV"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="z8m-yA-Uby">
                             <connections>
                                 <segue destination="MWj-HT-K2f" kind="push" id="hWT-p7-1G4"/>
@@ -146,7 +147,7 @@
             </objects>
             <point key="canvasLocation" x="1082" y="274"/>
         </scene>
-        <!--New Team Table View Controller-->
+        <!--New Team Table View Controller - New Team-->
         <scene sceneID="d39-5n-vYJ">
             <objects>
                 <tableViewController id="MWj-HT-K2f" customClass="SCCNewTeamTableViewController" sceneMemberID="viewController">
@@ -207,7 +208,7 @@
                             <outlet property="delegate" destination="MWj-HT-K2f" id="hMV-GK-2dU"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="JYy-E2-LCd">
+                    <navigationItem key="navigationItem" title="New Team" id="JYy-E2-LCd">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="7yM-kk-Znu">
                             <connections>
                                 <action selector="saveTeam:" destination="MWj-HT-K2f" id="3Za-t8-r71"/>
