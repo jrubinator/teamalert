@@ -11,5 +11,6 @@
 @interface SCCViewTeamTableViewController : SCCTeamTableViewController
 
 -(void)setDetailItem:(NSManagedObject *)team;
+@property (weak, nonatomic) IBOutlet UIView *addContactView;
 
 @end

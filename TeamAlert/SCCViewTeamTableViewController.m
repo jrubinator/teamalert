@@ -30,13 +30,22 @@
 
     [[self navigationItem] setTitle:[self.team valueForKey:@"name"]];
 
-    // Do any additional setup after loading the view.
+    [self.addContactView setHidden:!self.editing];
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    // Display "+ Add Contact" if editing
+    [self.addContactView setHidden:!editing];
+
+    [super setEditing:editing animated:animated];
 }
 
 /*
