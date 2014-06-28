@@ -56,9 +56,7 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="FPo-Rm-xaE"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Team Alert" id="tQt-TN-PWz">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="qmU-Dn-ugV"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="z8m-yA-Uby">
@@ -141,7 +139,9 @@
                             <outlet property="delegate" destination="yjn-af-lDQ" id="Kif-jE-C2j"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="I7h-qR-TQf"/>
+                    <navigationItem key="navigationItem" id="I7h-qR-TQf">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="eie-7b-l5i"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgP-dH-yBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
