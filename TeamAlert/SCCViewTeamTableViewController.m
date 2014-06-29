@@ -65,4 +65,29 @@
     self.members = [NSMutableArray arrayWithArray:[[team valueForKey:@"contacts"] allObjects]];
 }
 
+# pragma mark - Contact Handling
+
+- (void)inductContact:(ABRecordRef)person
+{
+    NSManagedObject * newMember = [self makeMemberFromContact:person];
+    NSManagedObject * team      = [self team];
+
+    for (NSManagedObject *membership in [newMember valueForKey:@"memberships"]) {
+        [membership setValue:team forKey:@"team"];
+    }
+
+    NSManagedObjectContext * context = [self managedObjectContext];
+    NSError *saveError = nil;
+    if (![context save:&saveError]) {
+        NSLog(@"Could not save new team: %@, %@", saveError, [saveError localizedDescription]);
+    }
+    else {
+        [[self members] addObject:newMember];
+        // Make sure the new contact displays the next time the page is loaded
+        [context refreshObject:team mergeChanges:YES];
+    }
+
+    [[self tableView] reloadData];
+}
+
 @end
