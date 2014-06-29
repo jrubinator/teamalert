@@ -12,5 +12,6 @@
 
 -(void)setDetailItem:(NSManagedObject *)team;
 @property (weak, nonatomic) IBOutlet UIView *addContactView;
+@property (weak, nonatomic) IBOutlet UIButton *addContact;
 
 @end

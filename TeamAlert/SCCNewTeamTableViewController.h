@@ -9,8 +9,9 @@
 
 #import "SCCTeamTableViewController.h"
 
-@interface SCCNewTeamTableViewController : SCCTeamTableViewController <ABPeoplePickerNavigationControllerDelegate>
-- (IBAction)addContact:(id)sender;
+@interface SCCNewTeamTableViewController : SCCTeamTableViewController
+
+
 - (IBAction)saveTeam:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *teamNameTextField;
 

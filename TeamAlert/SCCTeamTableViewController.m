@@ -131,4 +131,89 @@
     return context;
 }
 
+# pragma mark - Contact Picker
+- (IBAction)addContact:(id)sender {
+    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+    picker.peoplePickerDelegate = self;
+
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)peoplePickerNavigationControllerDidCancel:
+(ABPeoplePickerNavigationController *)peoplePicker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (BOOL)peoplePickerNavigationController:
+(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person {
+
+    [self inductContact:person];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    return NO;
+}
+
+- (BOOL)peoplePickerNavigationController:
+(ABPeoplePickerNavigationController *)peoplePicker
+      shouldContinueAfterSelectingPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier
+{
+    //Never reached
+    return NO;
+}
+
+- (void)inductContact:(ABRecordRef) person {
+    NSLog(@"Picked person %@", person);
+}
+
+- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person
+{
+    NSNumber * recordID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
+    NSString * firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString * lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSString * phone = nil;
+    NSString * email = nil;
+
+    ABMultiValueRef phoneNumbers   = ABRecordCopyValue(person, kABPersonPhoneProperty);
+    ABMultiValueRef emailAddresses = ABRecordCopyValue(person, kABPersonEmailProperty);
+
+    if (ABMultiValueGetCount(phoneNumbers) > 0) {
+        phone = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+    }
+
+    if (ABMultiValueGetCount(emailAddresses) > 0) {
+        email = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emailAddresses, 0);
+    }
+
+    CFRelease(phoneNumbers);
+    CFRelease(emailAddresses);
+
+    NSManagedObjectContext *context = [self managedObjectContext];
+
+    NSManagedObject *newMember = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:context];
+
+    [newMember setValue:recordID  forKey:@"recordID"];
+    [newMember setValue:firstName forKey:@"firstName"];
+    [newMember setValue:lastName  forKey:@"lastName"];
+
+    NSManagedObject *newPhoneMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
+
+    [newPhoneMembership setValue:phone          forKey:@"contactInfo"];
+    [newPhoneMembership setValue:@"phoneNumber" forKey:@"contactType"];
+    [newPhoneMembership setValue:newMember      forKey:@"contact"];
+
+    NSManagedObject *newEmailMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
+
+    [newEmailMembership setValue:email     forKey:@"contactInfo"];
+    [newEmailMembership setValue:@"email"  forKey:@"contactType"];
+    [newEmailMembership setValue:newMember forKey:@"contact"];
+
+    return newMember;
+}
+
+
 @end

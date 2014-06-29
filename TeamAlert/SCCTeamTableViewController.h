@@ -10,10 +10,14 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreData/CoreData.h>
 
-@interface SCCTeamTableViewController : UITableViewController
+@interface SCCTeamTableViewController : UITableViewController <ABPeoplePickerNavigationControllerDelegate>
+
+- (IBAction)addContact:(id)sender;
 
 @property (strong) NSMutableArray * members;
 
 - (NSManagedObjectContext *)managedObjectContext;
+
+- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person;
 
 @end
