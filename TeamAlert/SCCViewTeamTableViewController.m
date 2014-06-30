@@ -48,6 +48,18 @@
     [super setEditing:editing animated:animated];
 }
 
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete an object form the database
+        NSManagedObject *contact = [self.members objectAtIndex:indexPath.row];
+        if ( [self deleteContact:contact]) {
+            // And delete it from the UI
+            [self.members removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    }
+}
 /*
 #pragma mark - Navigation
 
@@ -88,6 +100,46 @@
     }
 
     [[self tableView] reloadData];
+}
+
+- (BOOL)deleteContact:(NSManagedObject *)contact {
+
+    NSManagedObject *team           = [self team];
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Membership"
+                                                                  inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+
+    NSPredicate *predicate =
+    [NSPredicate predicateWithFormat:@"(team = %@) AND (contact = %@)", team, contact];
+    [request setPredicate:predicate];
+
+    NSError *contextError;
+    NSArray *contactMemberships = [context executeFetchRequest:request error:&contextError];
+    if (contactMemberships == nil)
+    {
+        NSLog(@"Maybe that contact wasn't associated with this team? Error: %@", contextError);
+    }
+    else {
+        for (NSManagedObject *membership in contactMemberships) {
+            [context deleteObject:membership];
+        }
+
+        if ( [[contact valueForKey:@"teams"] count] == 1 ) {
+            [context deleteObject:contact];
+        }
+
+        if ( ![context save:&contextError] ) {
+            NSLog(@"Cannot Delete Contact! %@ %@", contextError, [contextError localizedDescription]);
+        }
+        else {
+            // Make sure the UI reflects the deletion
+            [context refreshObject:team mergeChanges:YES];
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end
