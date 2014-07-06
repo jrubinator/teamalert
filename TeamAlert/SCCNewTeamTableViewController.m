@@ -72,7 +72,7 @@
     NSManagedObject * newMember = [self makeMemberFromContact:person forTeam:team];
     
     if ( ![self members] ) {
-        self.members = [NSMutableArray arrayWithArray:[[team valueForKey:@"contacts"] allObjects]];
+        self.members = [NSMutableOrderedSet orderedSetWithArray:[[team valueForKey:@"contacts"] allObjects]];
     }
     else
     {

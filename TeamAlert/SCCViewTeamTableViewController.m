@@ -72,8 +72,11 @@
 
 - (void)setDetailItem:(NSManagedObject *)team
 {
+    // Make sure the team is up to date
+    [[self managedObjectContext] refreshObject:team mergeChanges:NO];
+
     self.team    = team;
-    self.members = [NSMutableArray arrayWithArray:[[team valueForKey:@"contacts"] allObjects]];
+    self.members = [NSMutableOrderedSet orderedSetWithArray:[[team valueForKey:@"contacts"] allObjects]];
 }
 
 # pragma mark - Contact Handling
@@ -90,8 +93,6 @@
     }
     else {
         [[self members] addObject:newMember];
-        // Make sure the new contact displays the next time the page is loaded
-        [context refreshObject:team mergeChanges:YES];
     }
 
     [[self tableView] reloadData];

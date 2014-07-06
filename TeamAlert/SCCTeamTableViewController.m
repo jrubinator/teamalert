@@ -172,9 +172,11 @@
 
 - (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person forTeam:(NSManagedObject *)team
 {
-    NSNumber * recordID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
-    NSString * firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-    NSString * lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    NSManagedObject * teamAlertContact = [self _findTeamAlertContactForABContact:person];
+    if ( !teamAlertContact ) {
+        teamAlertContact = [self _createTeamAlertContactFromABContact:person];
+    }
+
     NSString * phone = nil;
     NSString * email = nil;
 
@@ -194,28 +196,66 @@
 
     NSManagedObjectContext *context = [self managedObjectContext];
 
-    NSManagedObject *newMember = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:context];
-
-    [newMember setValue:recordID  forKey:@"recordID"];
-    [newMember setValue:firstName forKey:@"firstName"];
-    [newMember setValue:lastName  forKey:@"lastName"];
-
     NSManagedObject *newPhoneMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
 
     [newPhoneMembership setValue:phone          forKey:@"contactInfo"];
-    [newPhoneMembership setValue:@"phoneNumber" forKey:@"contactType"];
-    [newPhoneMembership setValue:newMember      forKey:@"contact"];
-    [newPhoneMembership setValue:team           forKey:@"team"];
+    [newPhoneMembership setValue:@"phoneNumber"   forKey:@"contactType"];
+    [newPhoneMembership setValue:teamAlertContact forKey:@"contact"];
+    [newPhoneMembership setValue:team             forKey:@"team"];
 
     NSManagedObject *newEmailMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
 
-    [newEmailMembership setValue:email     forKey:@"contactInfo"];
-    [newEmailMembership setValue:@"email"  forKey:@"contactType"];
-    [newEmailMembership setValue:newMember forKey:@"contact"];
-    [newEmailMembership setValue:team      forKey:@"team"];
+    [newEmailMembership setValue:email            forKey:@"contactInfo"];
+    [newEmailMembership setValue:@"email"         forKey:@"contactType"];
+    [newEmailMembership setValue:teamAlertContact forKey:@"contact"];
+    [newEmailMembership setValue:team             forKey:@"team"];
 
-    return newMember;
+    return teamAlertContact;
 }
 
+#pragma mark Internal Methods
+- (NSManagedObject *)_findTeamAlertContactForABContact:(ABRecordRef)person
+{
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSEntityDescription    *entityDescription = [NSEntityDescription entityForName:@"Contact"
+                                                            inManagedObjectContext:context];
+
+    NSFetchRequest * request = [[NSFetchRequest alloc] init];
+    [request setEntity:entityDescription];
+
+    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"(recordID = %i)", ABRecordGetRecordID(person)];
+    [request setPredicate:predicate];
+
+    [request setFetchLimit:1];
+
+    NSError * error;
+    NSArray * contactArray = [context executeFetchRequest:request error:&error];
+    if ( error ) {
+         NSLog(@"Cannot Retrieve Contact! %@ %@", error, [error localizedDescription]);
+        return nil;
+    }
+
+    if ( ![contactArray count] ) { return nil; }
+
+    // TODO: check that the name is what's expected
+    return [contactArray objectAtIndex:0];
+}
+
+- (NSManagedObject *)_createTeamAlertContactFromABContact:(ABRecordRef)person
+{
+    NSNumber * recordID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
+    NSString * firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    NSString * lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+
+    NSManagedObjectContext * context = [self managedObjectContext];
+
+    NSManagedObject *newContact = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:context];
+
+    [newContact setValue:recordID  forKey:@"recordID"];
+    [newContact setValue:firstName forKey:@"firstName"];
+    [newContact setValue:lastName  forKey:@"lastName"];
+
+    return newContact;
+}
 
 @end

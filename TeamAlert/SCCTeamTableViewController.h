@@ -14,8 +14,8 @@
 
 - (IBAction)addContact:(id)sender;
 
-@property (strong) NSManagedObject * team;
-@property (strong) NSMutableArray  * members;
+@property (strong) NSManagedObject     * team;
+@property (strong) NSMutableOrderedSet * members;
 
 - (NSManagedObjectContext *)managedObjectContext;
 
