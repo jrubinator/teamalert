@@ -14,10 +14,11 @@
 
 - (IBAction)addContact:(id)sender;
 
-@property (strong) NSMutableArray * members;
+@property (strong) NSManagedObject * team;
+@property (strong) NSMutableArray  * members;
 
 - (NSManagedObjectContext *)managedObjectContext;
 
-- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person;
+- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person forTeam:(NSManagedObject *)team;
 
 @end

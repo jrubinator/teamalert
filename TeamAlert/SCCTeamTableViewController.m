@@ -170,7 +170,7 @@
     NSLog(@"Picked person %@", person);
 }
 
-- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person
+- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person forTeam:(NSManagedObject *)team
 {
     NSNumber * recordID = [NSNumber numberWithInt:ABRecordGetRecordID(person)];
     NSString * firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
@@ -205,12 +205,14 @@
     [newPhoneMembership setValue:phone          forKey:@"contactInfo"];
     [newPhoneMembership setValue:@"phoneNumber" forKey:@"contactType"];
     [newPhoneMembership setValue:newMember      forKey:@"contact"];
+    [newPhoneMembership setValue:team           forKey:@"team"];
 
     NSManagedObject *newEmailMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
 
     [newEmailMembership setValue:email     forKey:@"contactInfo"];
     [newEmailMembership setValue:@"email"  forKey:@"contactType"];
     [newEmailMembership setValue:newMember forKey:@"contact"];
+    [newEmailMembership setValue:team      forKey:@"team"];
 
     return newMember;
 }

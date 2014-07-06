@@ -26,17 +26,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    // Create a scratchpad team for saving
+    NSManagedObjectContext *context = [self managedObjectContext];
+
+    [self setTeam:[NSEntityDescription insertNewObjectForEntityForName:@"Team"
+                                       inManagedObjectContext:context]];
+
     // Monitor the name field so we know when the team can be saved
     [[self teamNameTextField] addTarget:self
                                 action:@selector(maybeEnableDoneButton)
                       forControlEvents:UIControlEventEditingChanged];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -45,6 +45,17 @@
 
     // We'll also need to check when contacts are removed, but hey!
     self.navigationItem.rightBarButtonItem.enabled = [self isTeamSaveable];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    // When the view unloads, discard the scratchpad team
+
+    [super viewWillDisappear:animated];
+    // make sure we're not fetching the people picker
+    if ( [self isMovingFromParentViewController] ) {
+        [[self managedObjectContext] rollback];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,13 +68,16 @@
 
 - (void)inductContact:(ABRecordRef)person
 {
-    NSManagedObject * newMember = [self makeMemberFromContact:person];
+    NSManagedObject * team      = [self team];
+    NSManagedObject * newMember = [self makeMemberFromContact:person forTeam:team];
     
     if ( ![self members] ) {
-        self.members = [[NSMutableArray alloc] init];
+        self.members = [NSMutableArray arrayWithArray:[[team valueForKey:@"contacts"] allObjects]];
     }
-
-    [[self members] addObject:newMember];
+    else
+    {
+        [[self members] addObject:newMember];
+    }
 
     [[self tableView] reloadData];
     
@@ -86,17 +100,9 @@
 - (IBAction)saveTeam:(id)sender {
     // This should always be true
     if( [self isTeamSaveable] ) {
-        NSString *teamName = self.teamNameTextField.text;
         NSManagedObjectContext *context = [self managedObjectContext];
 
-        NSManagedObject *newTeam = [NSEntityDescription insertNewObjectForEntityForName:@"Team" inManagedObjectContext:context];
-        [newTeam setValue:teamName forKey:@"name"];
-
-        for (NSManagedObject *member in self.members) {
-            for (NSManagedObject *membership in [member valueForKey:@"memberships"]) {
-                [membership setValue:newTeam forKey:@"team"];
-            }
-        }
+        [[self team] setValue:self.teamNameTextField.text forKey:@"name"];
 
         NSError *saveError = nil;
         if (![context save:&saveError]) {

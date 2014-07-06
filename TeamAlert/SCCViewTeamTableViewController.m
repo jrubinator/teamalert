@@ -9,7 +9,6 @@
 #import "SCCViewTeamTableViewController.h"
 
 @interface SCCViewTeamTableViewController ()
-@property (strong) NSManagedObject * team;
 
 @end
 
@@ -81,12 +80,8 @@
 
 - (void)inductContact:(ABRecordRef)person
 {
-    NSManagedObject * newMember = [self makeMemberFromContact:person];
     NSManagedObject * team      = [self team];
-
-    for (NSManagedObject *membership in [newMember valueForKey:@"memberships"]) {
-        [membership setValue:team forKey:@"team"];
-    }
+    NSManagedObject * newMember = [self makeMemberFromContact:person forTeam:team];
 
     NSManagedObjectContext * context = [self managedObjectContext];
     NSError *saveError = nil;
