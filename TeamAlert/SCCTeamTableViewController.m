@@ -71,6 +71,15 @@
     return cell;
 }
 
+- (void) displayMember:(NSManagedObject *)member {
+    if ( ![self members] ) {
+        self.members = [NSMutableOrderedSet orderedSetWithArray:[[self.team valueForKey:@"contacts"] allObjects]];
+    }
+
+    [[self members] addObject:member];
+    [[self tableView] reloadData];
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -150,10 +159,17 @@
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
 
-    [self inductContact:person];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    // Auto-pick?
 
-    return NO;
+    [peoplePicker setDisplayedProperties:
+        [NSArray arrayWithObjects:
+            [NSNumber numberWithInt:kABPersonEmailProperty],
+            [NSNumber numberWithInt:kABPersonPhoneProperty],
+            nil
+         ]
+     ];
+
+    return YES;
 }
 
 - (BOOL)peoplePickerNavigationController:
@@ -162,53 +178,67 @@
                                 property:(ABPropertyID)property
                               identifier:(ABMultiValueIdentifier)identifier
 {
-    //Never reached
+    if ( property != kABPersonPhoneProperty && property != kABPersonEmailProperty ) {
+        // TODO: error
+    }
+
+    // TODO: allow both at once? See
+    // http://stackoverflow.com/questions/1320931/how-to-correctly-use-abpersonviewcontroller-with-abpeoplepickernavigationcontrol
+
+    [self inductContact:person contactType:property identifier:identifier];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
     return NO;
 }
 
-- (void)inductContact:(ABRecordRef) person {
-    NSLog(@"Picked person %@", person);
+- (NSManagedObject*)inductContact:(ABRecordRef)person
+        contactType:(ABPropertyID)property
+        identifier:(ABMultiValueIdentifier)identifier
+{
+    NSManagedObject * team      = [self team];
+    NSManagedObject * newMember = [self makeMemberFromContact:person forTeam:team withContactMethod:property withIdentifier:identifier];
+
+    // Subclasses responsible for displaying the new member
+    return newMember;
 }
 
-- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person forTeam:(NSManagedObject *)team
+- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person
+                                  forTeam:(NSManagedObject *)team
+                        withContactMethod:(ABPropertyID)property
+                           withIdentifier:(ABMultiValueIdentifier)identifier
 {
     NSManagedObject * teamAlertContact = [self _findTeamAlertContactForABContact:person];
     if ( !teamAlertContact ) {
         teamAlertContact = [self _createTeamAlertContactFromABContact:person];
     }
 
-    NSString * phone = nil;
-    NSString * email = nil;
+    ABMultiValueRef phonesOrEmails = ABRecordCopyValue(person, property);
 
-    ABMultiValueRef phoneNumbers   = ABRecordCopyValue(person, kABPersonPhoneProperty);
-    ABMultiValueRef emailAddresses = ABRecordCopyValue(person, kABPersonEmailProperty);
-
-    if (ABMultiValueGetCount(phoneNumbers) > 0) {
-        phone = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, 0);
+    NSString * contactInfo = nil;
+    NSString * contactType = nil;
+    if ( property == kABPersonEmailProperty ) {
+        contactType = @"email";
     }
-
-    if (ABMultiValueGetCount(emailAddresses) > 0) {
-        email = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emailAddresses, 0);
+    else if ( property == kABPersonPhoneProperty ) {
+        contactType = @"phoneNumber";
     }
+    // TODO: Or Error
 
-    CFRelease(phoneNumbers);
-    CFRelease(emailAddresses);
+    if (ABMultiValueGetCount(phonesOrEmails) > 0) {
+        contactInfo = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phonesOrEmails, identifier);
+    }
+    // TODO: Or Error
+
+    CFRelease(phonesOrEmails);
 
     NSManagedObjectContext *context = [self managedObjectContext];
 
-    NSManagedObject *newPhoneMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
+    NSManagedObject *newMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
 
-    [newPhoneMembership setValue:phone          forKey:@"contactInfo"];
-    [newPhoneMembership setValue:@"phoneNumber"   forKey:@"contactType"];
-    [newPhoneMembership setValue:teamAlertContact forKey:@"contact"];
-    [newPhoneMembership setValue:team             forKey:@"team"];
-
-    NSManagedObject *newEmailMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
-
-    [newEmailMembership setValue:email            forKey:@"contactInfo"];
-    [newEmailMembership setValue:@"email"         forKey:@"contactType"];
-    [newEmailMembership setValue:teamAlertContact forKey:@"contact"];
-    [newEmailMembership setValue:team             forKey:@"team"];
+    [newMembership setValue:contactInfo      forKey:@"contactInfo"];
+    [newMembership setValue:contactType      forKey:@"contactType"];
+    [newMembership setValue:teamAlertContact forKey:@"contact"];
+    [newMembership setValue:team             forKey:@"team"];
 
     return teamAlertContact;
 }

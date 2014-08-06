@@ -66,21 +66,15 @@
 
 #pragma mark - Adding a contact
 
-- (void)inductContact:(ABRecordRef)person
-{
-    NSManagedObject * team      = [self team];
-    NSManagedObject * newMember = [self makeMemberFromContact:person forTeam:team];
-    
-    if ( ![self members] ) {
-        self.members = [NSMutableOrderedSet orderedSetWithArray:[[team valueForKey:@"contacts"] allObjects]];
-    }
-    else
-    {
-        [[self members] addObject:newMember];
-    }
 
-    [[self tableView] reloadData];
-    
+- (NSManagedObject*)inductContact:(ABRecordRef)person
+                      contactType:(ABPropertyID)property
+                       identifier:(ABMultiValueIdentifier)identifier
+{
+    NSManagedObject * newMember = [super inductContact:person contactType:property identifier:identifier];
+    [self displayMember:newMember];
+
+    return newMember;
 }
 
 - (void)maybeEnableDoneButton

@@ -81,21 +81,23 @@
 
 # pragma mark - Contact Handling
 
-- (void)inductContact:(ABRecordRef)person
+- (NSManagedObject*)inductContact:(ABRecordRef)person
+                      contactType:(ABPropertyID)property
+                       identifier:(ABMultiValueIdentifier)identifier
 {
-    NSManagedObject * team      = [self team];
-    NSManagedObject * newMember = [self makeMemberFromContact:person forTeam:team];
+    NSManagedObject * newMember = [super inductContact:person contactType:property identifier:identifier];
 
-    NSManagedObjectContext * context = [self managedObjectContext];
-    NSError *saveError = nil;
+    NSManagedObjectContext * context   = [self managedObjectContext];
+    NSError                * saveError = nil;
+
     if (![context save:&saveError]) {
         NSLog(@"Could not save new team: %@, %@", saveError, [saveError localizedDescription]);
     }
     else {
-        [[self members] addObject:newMember];
+        [self displayMember:newMember];
     }
 
-    [[self tableView] reloadData];
+    return newMember;
 }
 
 - (BOOL)deleteContact:(NSManagedObject *)contact {

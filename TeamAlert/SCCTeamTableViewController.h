@@ -18,7 +18,9 @@
 @property (strong) NSMutableOrderedSet * members;
 
 - (NSManagedObjectContext *)managedObjectContext;
-
-- (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person forTeam:(NSManagedObject *)team;
+- (NSManagedObject*)inductContact:(ABRecordRef)person
+                      contactType:(ABPropertyID)property
+                       identifier:(ABMultiValueIdentifier)identifier;
+- (void)displayMember:(NSManagedObject *)member;
 
 @end
