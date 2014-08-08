@@ -29,6 +29,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    // Not sure why our other Table View Controllers don't need this...
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
+    // A little extra margin before the first cell
+    UIEdgeInsets inset    = [self.tableView contentInset];
+    CGFloat      insetTop = inset.top;
+    if ( !insetTop ) { insetTop = 5.0f; }
+    [self.tableView setContentInset:UIEdgeInsetsMake(insetTop * 1.5f, inset.left, inset.bottom, inset.right)];
+
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 /* Un-comment to do default app navigation
@@ -80,6 +90,12 @@
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Default is 44.0f, this is 65.0f
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath] * 1.5f;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
