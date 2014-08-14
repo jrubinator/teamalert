@@ -120,12 +120,12 @@
         NSLog(@"Maybe that contact wasn't associated with this team? Error: %@", contextError);
     }
     else {
-        for (NSManagedObject *membership in contactMemberships) {
-            [context deleteObject:membership];
-        }
-
         if ( [[contact valueForKey:@"teams"] count] == 1 ) {
             [context deleteObject:contact];
+        }
+
+        for (NSManagedObject *membership in contactMemberships) {
+            [context deleteObject:membership];
         }
 
         if ( ![context save:&contextError] ) {
