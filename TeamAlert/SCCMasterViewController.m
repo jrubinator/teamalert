@@ -9,6 +9,7 @@
 #import "SCCMasterViewController.h"
 
 #import "SCCDetailViewController.h"
+#import "SCCPaddedTableViewCell.h"
 
 @interface SCCMasterViewController () {
     NSMutableArray *_teams;
@@ -79,10 +80,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    SCCPaddedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
     NSManagedObject *team = _teams[indexPath.row];
     cell.textLabel.text = [team valueForKey:@"name"];
+
+    [cell.alertButton setTag:indexPath.row];
+    [cell.alertButton addTarget:self action:@selector(sendAlert:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
@@ -143,6 +147,13 @@
         [[segue destinationViewController] setDetailItem:team];
     }
 }
+
+-(void)sendAlert:(id)sender {
+    UIButton *senderButton = (UIButton *)sender;
+    NSLog(@"current Row=%d",senderButton.tag);
+}
+
+# pragma mark - Managed Objects
 
 - (NSManagedObjectContext *)managedObjectContext {
     NSManagedObjectContext *context = nil;

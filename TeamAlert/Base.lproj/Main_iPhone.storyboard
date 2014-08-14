@@ -56,6 +56,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
+                                    <outlet property="alertButton" destination="xE4-b2-OdD" id="lHj-fo-1Ks"/>
                                     <segue destination="yjn-af-lDQ" kind="push" identifier="showDetail" id="oam-2l-OGl"/>
                                 </connections>
                             </tableViewCell>

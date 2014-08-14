@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface SCCPaddedTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *alertButton;
 
 @end
