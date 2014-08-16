@@ -13,8 +13,12 @@
 
 @interface SCCMasterViewController () {
     NSMutableArray *_teams;
+    NSManagedObject *_selectedTeam;
 }
 @end
+
+const int kEMAIL_ACTION_INDEX = 0;
+const int kPHONE_ACTION_INDEX = 1;
 
 @implementation SCCMasterViewController
 
@@ -148,9 +152,37 @@
     }
 }
 
+# pragma mark - UIActionSheetDelegate
+
 -(void)sendAlert:(id)sender {
     UIButton *senderButton = (UIButton *)sender;
-    NSLog(@"current Row=%d",senderButton.tag);
+
+    _selectedTeam       = [_teams objectAtIndex:senderButton.tag];
+    NSString * teamName = [_selectedTeam valueForKeyPath:@"name"];
+    NSString * emailOpt = [NSString stringWithFormat:@"Email %@ Team", teamName];
+    NSString * phoneOpt = [NSString stringWithFormat:@"Message %@ Team", teamName];
+
+    UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                         delegate:self
+                                                cancelButtonTitle:@"Cancel"
+                                           destructiveButtonTitle:nil
+                                                otherButtonTitles:emailOpt, phoneOpt, nil
+                             ];
+    sheet.actionSheetStyle = UIActionSheetStyleDefault;
+    [sheet showInView:[self view]];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case kPHONE_ACTION_INDEX:
+            NSLog(@"will send text");
+            break;
+        case kEMAIL_ACTION_INDEX:
+            NSLog(@"will send email");
+            break;
+        default:
+            break;
+    }
 }
 
 # pragma mark - Managed Objects

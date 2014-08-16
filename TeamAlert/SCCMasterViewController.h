@@ -11,7 +11,7 @@
 
 @class SCCDetailViewController;
 
-@interface SCCMasterViewController : UITableViewController
+@interface SCCMasterViewController : UITableViewController <UIActionSheetDelegate>
 
 @property (strong, nonatomic) SCCDetailViewController *detailViewController;
 
