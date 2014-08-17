@@ -175,7 +175,7 @@ const int kPHONE_ACTION_INDEX = 1;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex) {
         case kPHONE_ACTION_INDEX:
-            NSLog(@"will send text");
+            [self sendTextToTeam:_selectedTeam];
             break;
         case kEMAIL_ACTION_INDEX:
             NSLog(@"will send email");
@@ -183,7 +183,53 @@ const int kPHONE_ACTION_INDEX = 1;
         default:
             break;
     }
+    _selectedTeam = nil;
 }
+
+# pragma mark MFMessageComposeViewControllerDelegate
+
+- (void)sendTextToTeam:(NSManagedObject *)team {
+    if(![MFMessageComposeViewController canSendText]) {
+        // TODO Don't even get to this point
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                               message:@"This device does not support text messages!"
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+
+    MFMessageComposeViewController * composer = [[MFMessageComposeViewController alloc] init];
+
+    composer.messageComposeDelegate = self;
+    composer.recipients = [[team valueForKey:@"phoneMemberships"] valueForKey:@"contactInfo"];
+
+    if( ![composer.recipients count] ) {
+        // TODO Don't even get to this point
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                               message:@"This team has no one with phone numbers!"
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+    
+    composer.body = [NSString stringWithFormat:@"%@:\n", [team valueForKey:@"name"]];
+
+    [self presentViewController:composer animated:YES completion:nil];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
+    if ( result == MessageComposeResultFailed ) {
+        // TODO: try again?
+        NSLog(@"Failed to send message");
+    }
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 # pragma mark - Managed Objects
 

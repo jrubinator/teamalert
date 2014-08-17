@@ -12,6 +12,7 @@
 		6103603519340AA500510ECD /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6103603319340AA500510ECD /* AddressBookUI.framework */; };
 		610360461937F04F00510ECD /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610360451937F04F00510ECD /* CoreData.framework */; };
 		610A931619944ABB00EDE442 /* SCCPaddedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 610A931519944ABB00EDE442 /* SCCPaddedTableViewCell.m */; };
+		6118817C19A13C330044EEDC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6118817B19A13C330044EEDC /* MessageUI.framework */; };
 		612CDA20193BB8D4002178ED /* SCCNewTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */; };
 		617089081958E40400EB23A3 /* SCCTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 617089071958E40400EB23A3 /* SCCTeamTableViewController.m */; };
 		6170890B195CF44900EB23A3 /* SCCViewTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6170890A195CF44900EB23A3 /* SCCViewTeamTableViewController.m */; };
@@ -52,6 +53,7 @@
 		610360451937F04F00510ECD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		610A931419944ABB00EDE442 /* SCCPaddedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCPaddedTableViewCell.h; sourceTree = "<group>"; };
 		610A931519944ABB00EDE442 /* SCCPaddedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCPaddedTableViewCell.m; sourceTree = "<group>"; };
+		6118817B19A13C330044EEDC /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		612CDA1E193BB8D4002178ED /* SCCNewTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCNewTeamTableViewController.h; sourceTree = "<group>"; };
 		612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCNewTeamTableViewController.m; sourceTree = "<group>"; };
 		617089061958E40400EB23A3 /* SCCTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCTeamTableViewController.h; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6118817C19A13C330044EEDC /* MessageUI.framework in Frameworks */,
 				610360461937F04F00510ECD /* CoreData.framework in Frameworks */,
 				6103603419340AA500510ECD /* AddressBook.framework in Frameworks */,
 				6103603519340AA500510ECD /* AddressBookUI.framework in Frameworks */,
@@ -133,6 +136,7 @@
 		617C6EC7190C5EC20036D3DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6118817B19A13C330044EEDC /* MessageUI.framework */,
 				610360451937F04F00510ECD /* CoreData.framework */,
 				6103603219340AA500510ECD /* AddressBook.framework */,
 				6103603319340AA500510ECD /* AddressBookUI.framework */,
