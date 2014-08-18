@@ -178,7 +178,7 @@ const int kPHONE_ACTION_INDEX = 1;
             [self sendTextToTeam:_selectedTeam];
             break;
         case kEMAIL_ACTION_INDEX:
-            NSLog(@"will send email");
+            [self sendEmailToTeam:_selectedTeam];
             break;
         default:
             break;
@@ -230,6 +230,46 @@ const int kPHONE_ACTION_INDEX = 1;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)sendEmailToTeam:(NSManagedObject *)team {
+    if(![MFMailComposeViewController canSendMail]) {
+        // TODO Don't even get to this point
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                               message:@"This device does not support emails!"
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+
+    NSArray * recipients = [[team valueForKey:@"emailMemberships"] valueForKey:@"contactInfo"];
+
+    if( ![recipients count] ) {
+        // TODO Don't even get to this point
+        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                               message:@"This team has no one with email addresses!"
+                                                              delegate:nil
+                                                     cancelButtonTitle:@"OK"
+                                                     otherButtonTitles:nil];
+        [warningAlert show];
+        return;
+    }
+
+    MFMailComposeViewController * composer = [[MFMailComposeViewController alloc] init];
+    composer.mailComposeDelegate = self;
+    [composer setToRecipients:recipients];
+    [composer setSubject:[NSString stringWithFormat:@"%@ Alert!", [team valueForKey:@"name"]]];
+
+    [self presentViewController:composer animated:YES completion:nil];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    if ( result == MFMailComposeResultFailed || error != nil ) {
+        NSLog( @"Failed to send message with error: %@, %@", error, [error localizedDescription]);
+    }
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 # pragma mark - Managed Objects
 

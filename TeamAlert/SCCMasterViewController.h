@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <MessageUI/MFMessageComposeViewController.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 @class SCCDetailViewController;
 
-@interface SCCMasterViewController : UITableViewController <UIActionSheetDelegate, MFMessageComposeViewControllerDelegate>
+@interface SCCMasterViewController : UITableViewController <UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) SCCDetailViewController *detailViewController;
 
