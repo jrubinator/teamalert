@@ -65,7 +65,19 @@
 
     // Configure the cell...
     NSObject *member = [self.members objectAtIndex:indexPath.row];
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@", [member valueForKey:@"firstName"], [member valueForKey:@"lastName"]]];
+
+    // Note we don't normalize these on input
+    // Because we (will) use them to keep contact info up to date
+    NSString * firstName = [member valueForKey:@"firstName"];
+    if ( firstName == nil ) {
+        firstName = @"";
+    }
+    NSString * lastName = [member valueForKey:@"lastName"];
+    if ( lastName == nil ) {
+        lastName = @"";
+    }
+
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
     //[cell.detailTextLabel setText:[member valueForKey:@"phoneNumber"]];
 
     return cell;
