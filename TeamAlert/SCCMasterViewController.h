@@ -16,5 +16,6 @@
 @interface SCCMasterViewController : UITableViewController <UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) SCCDetailViewController *detailViewController;
+@property (weak, nonatomic) IBOutlet UIView *firstTeamView;
 
 @end

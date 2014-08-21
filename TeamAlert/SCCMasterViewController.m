@@ -59,7 +59,10 @@ const int kPHONE_ACTION_INDEX = 1;
     NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Team"];
     _teams = [[managedObjectContext executeFetchRequest:fetchRequest error:nil] mutableCopy];
-    
+
+    // Provide extra link to create first team
+    [self.firstTeamView setHidden:[_teams count]];
+
     [self.tableView reloadData];
 }
 
@@ -115,6 +118,9 @@ const int kPHONE_ACTION_INDEX = 1;
             // And delete it from the UI
             [_teams removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+            // Provide extra link to create first team
+            [self.firstTeamView setHidden:[_teams count]];
         }
     }
 }
