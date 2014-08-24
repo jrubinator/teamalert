@@ -35,8 +35,8 @@
 
     // Monitor the name field so we know when the team can be saved
     [[self teamNameTextField] addTarget:self
-                                action:@selector(maybeEnableDoneButton)
-                      forControlEvents:UIControlEventEditingChanged];
+                                action:@selector(teamNameTextFieldDidChange)
+                      forControlEvents:UIControlEventEditingChanged | UIControlEventEditingDidBegin];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,9 +77,28 @@
     return newMember;
 }
 
-- (void)maybeEnableDoneButton
+- (void)teamNameTextFieldDidChange
 {
-    self.navigationItem.rightBarButtonItem.enabled = [self isTeamSaveable];
+    UIReturnKeyType oldKeyType = self.teamNameTextField.returnKeyType;
+    UIReturnKeyType newKeyType = 0;
+
+    BOOL isSaveable = [self isTeamSaveable];
+
+    if ( isSaveable ) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
+        newKeyType = UIReturnKeyGo;
+    }
+    else if ( self.members.count > 0 ) {
+        newKeyType = UIReturnKeyGo;
+    }
+    else {
+        newKeyType = UIReturnKeyNext;
+    }
+
+    if ( newKeyType != 0 && newKeyType != oldKeyType ) {
+        self.teamNameTextField.returnKeyType = newKeyType;
+        [self.teamNameTextField reloadInputViews];
+    }
 }
 
 - (BOOL)isTeamSaveable
