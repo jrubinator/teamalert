@@ -49,6 +49,18 @@
 {
     [super layoutSubviews];
 
+    // Leave about 1/10 of the image's width (ie. ~ 4px) as a right margin
+    CGRect accessoryViewFrame = self.accessoryView.frame;
+    float origX = accessoryViewFrame.origin.x;
+    float newX  = CGRectGetWidth(self.bounds) - 1.1 * CGRectGetWidth(accessoryViewFrame);
+    accessoryViewFrame.origin.x = newX;
+    self.accessoryView.frame = accessoryViewFrame;
+
+    // Add that extra space to the label length
+    CGRect textLabelFrame = self.textLabel.frame;
+    textLabelFrame.size.width = textLabelFrame.size.width + (newX - origX);
+    self.textLabel.frame = textLabelFrame;
+
     [self.contentView.superview.layer setBorderColor:[UIColor blackColor].CGColor];
     [self.contentView.superview.layer setBorderWidth:1.0f];
 }

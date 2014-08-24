@@ -92,8 +92,16 @@ const int kPHONE_ACTION_INDEX = 1;
     NSManagedObject *team = _teams[indexPath.row];
     cell.textLabel.text = [team valueForKey:@"name"];
 
-    [cell.alertButton setTag:indexPath.row];
-    [cell.alertButton addTarget:self action:@selector(sendAlert:) forControlEvents:UIControlEventTouchUpInside];
+    if ( cell.accessoryView == nil ) {
+        cell.accessoryView        = [[SCCAlertButton alloc] initWithFrame:CGRectMake(0, 0, 46, 46)];
+        cell.accessoryView.opaque = NO;
+        cell.backgroundColor      = [UIColor clearColor];
+
+        [(SCCAlertButton*)cell.accessoryView addTarget:self action:@selector(sendAlert:) forControlEvents:UIControlEventTouchUpInside];
+    }
+
+    [cell.accessoryView setTag:indexPath.row];
+
     return cell;
 }
 

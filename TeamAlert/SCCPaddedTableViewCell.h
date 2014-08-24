@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SCCAlertButton.h"
 
 @interface SCCPaddedTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *alertButton;
+@property (weak, nonatomic) IBOutlet SCCAlertButton *alertButton;
 
 @end

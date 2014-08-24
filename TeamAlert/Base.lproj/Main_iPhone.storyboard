@@ -60,21 +60,10 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xE4-b2-OdD">
-                                            <rect key="frame" x="271" y="3" width="46" height="46"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                            <state key="normal" image="alert-button.png"/>
-                                        </button>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="xE4-b2-OdD" firstAttribute="top" secondItem="d3P-M7-ByW" secondAttribute="top" constant="3" id="cwO-oJ-you"/>
-                                        <constraint firstAttribute="trailing" secondItem="xE4-b2-OdD" secondAttribute="trailing" constant="3" id="kty-wL-ysK"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="alertButton" destination="xE4-b2-OdD" id="lHj-fo-1Ks"/>
                                     <segue destination="yjn-af-lDQ" kind="push" identifier="showDetail" id="oam-2l-OGl"/>
                                 </connections>
                             </tableViewCell>
@@ -282,9 +271,6 @@
             <point key="canvasLocation" x="1136" y="-492"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="alert-button.png" width="46" height="46"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
