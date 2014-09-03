@@ -217,7 +217,7 @@ const int kPHONE_ACTION_INDEX = 1;
     MFMessageComposeViewController * composer = [[MFMessageComposeViewController alloc] init];
 
     composer.messageComposeDelegate = self;
-    composer.recipients = [[team valueForKey:@"phoneMemberships"] valueForKey:@"contactInfo"];
+    composer.recipients = [[team valueForKey:@"phoneNumbers"] valueForKey:@"contactInfo"];
 
     if( ![composer.recipients count] ) {
         // TODO Don't even get to this point
@@ -256,7 +256,7 @@ const int kPHONE_ACTION_INDEX = 1;
         return;
     }
 
-    NSArray * recipients = [[team valueForKey:@"emailMemberships"] valueForKey:@"contactInfo"];
+    NSArray * recipients = [[team valueForKey:@"emails"] valueForKey:@"contactInfo"];
 
     if( ![recipients count] ) {
         // TODO Don't even get to this point
@@ -310,6 +310,12 @@ const int kPHONE_ACTION_INDEX = 1;
     for ( NSManagedObject *membership in [team valueForKey:@"memberships"] ) {
 
         [context deleteObject:membership];
+
+        // Delete contactInfo if it's only used for this team
+        NSManagedObject *contactInfo = [membership valueForKey:@"contactInfo"];
+        if ( [[contactInfo valueForKey:@"memberships"] count] == 1 ) {
+            [context deleteObject:contactInfo];
+        }
     }
 
     [context deleteObject:team];

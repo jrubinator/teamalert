@@ -4,36 +4,41 @@
         <attribute name="firstName" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="memberships" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="contact" inverseEntity="Membership" syncable="YES"/>
+        <relationship name="contactInfos" toMany="YES" deletionRule="Deny" destinationEntity="ContactInfo" inverseName="contact" inverseEntity="ContactInfo" syncable="YES"/>
         <fetchedProperty name="teams" optional="YES" syncable="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Team" predicateString="ANY memberships.contact = $FETCH_SOURCE"/>
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Team" predicateString="ANY memberships.contactInfo.contact = $FETCH_SOURCE"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="ContactInfo" syncable="YES">
+        <attribute name="contactInfo" attributeType="String" syncable="YES"/>
+        <attribute name="contactType" attributeType="String" syncable="YES"/>
+        <relationship name="contact" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="contactInfos" inverseEntity="Contact" syncable="YES"/>
+        <relationship name="memberships" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="contactInfo" inverseEntity="Membership" syncable="YES"/>
+        <fetchedProperty name="fetchedProperty" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="ContactInfo"/>
         </fetchedProperty>
     </entity>
     <entity name="Membership" syncable="YES">
-        <attribute name="contactInfo" attributeType="String" syncable="YES"/>
-        <attribute name="contactType" attributeType="String" syncable="YES"/>
-        <relationship name="contact" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="memberships" inverseEntity="Contact" syncable="YES"/>
-        <relationship name="team" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="memberships" inverseEntity="Team" syncable="YES"/>
-        <fetchedProperty name="fetchedProperty" optional="YES" syncable="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Membership"/>
-        </fetchedProperty>
+        <relationship name="contactInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactInfo" inverseName="memberships" inverseEntity="ContactInfo" syncable="YES"/>
+        <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="memberships" inverseEntity="Team" syncable="YES"/>
     </entity>
     <entity name="Team" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="team" inverseEntity="Membership" syncable="YES"/>
         <fetchedProperty name="contacts" optional="YES" syncable="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Contact" predicateString="ANY memberships.team = $FETCH_SOURCE"/>
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Contact" predicateString="SUBQUERY(contactInfos, $c, ANY $c.memberships.team = $FETCH_SOURCE).@count != 0"/>
         </fetchedProperty>
-        <fetchedProperty name="emailMemberships" optional="YES" syncable="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Membership" predicateString="team = $FETCH_SOURCE AND contactType = &quot;email&quot;"/>
+        <fetchedProperty name="emails" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="ContactInfo" predicateString="contactType = &quot;email&quot; AND ANY memberships.team = $FETCH_SOURCE"/>
         </fetchedProperty>
-        <fetchedProperty name="phoneMemberships" optional="YES" syncable="YES">
-            <fetchRequest name="fetchedPropertyFetchRequest" entity="Membership" predicateString="team = $FETCH_SOURCE AND contactType = &quot;phoneNumber&quot;"/>
+        <fetchedProperty name="phoneNumbers" optional="YES" syncable="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="ContactInfo" predicateString="contactType = &quot;phoneNumber&quot; AND ANY memberships.team = $FETCH_SOURCE"/>
         </fetchedProperty>
     </entity>
     <elements>
         <element name="Contact" positionX="-387" positionY="-7" width="128" height="131"/>
-        <element name="Membership" positionX="-198" positionY="63" width="128" height="131"/>
-        <element name="Team" positionX="-54" positionY="9" width="128" height="134"/>
+        <element name="ContactInfo" positionX="-198" positionY="63" width="128" height="131"/>
+        <element name="Membership" positionX="-216" positionY="72" width="128" height="73"/>
+        <element name="Team" positionX="-54" positionY="9" width="128" height="131"/>
     </elements>
 </model>

@@ -110,7 +110,7 @@
     [request setEntity:entityDescription];
 
     NSPredicate *predicate =
-    [NSPredicate predicateWithFormat:@"(team = %@) AND (contact = %@)", team, contact];
+    [NSPredicate predicateWithFormat:@"(team = %@) AND (contactInfo.contact = %@)", team, contact];
     [request setPredicate:predicate];
 
     NSError *contextError;
@@ -126,6 +126,11 @@
 
         for (NSManagedObject *membership in contactMemberships) {
             [context deleteObject:membership];
+
+            NSManagedObject *contactInfo = [membership valueForKey:@"contactInfo"];
+            if ( [[contactInfo valueForKey:@"memberships"] count] == 1 ) {
+                [context deleteObject:contactInfo];
+            }
         }
 
         if ( ![context save:&contextError] ) {

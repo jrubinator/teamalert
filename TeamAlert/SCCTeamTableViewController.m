@@ -244,37 +244,65 @@
     CFRelease(phonesOrEmails);
 
     NSManagedObjectContext *context = [self managedObjectContext];
-    NSEntityDescription    *entityDescription = [NSEntityDescription entityForName:@"Membership"
+    NSEntityDescription    *entityDescription = [NSEntityDescription entityForName:@"ContactInfo"
                                                             inManagedObjectContext:context];
 
     NSFetchRequest * request = [[NSFetchRequest alloc] init];
     [request setEntity:entityDescription];
 
     NSPredicate * predicate = [NSPredicate
-        predicateWithFormat:@"%K = %@ AND %K = %@ AND %K = %@ AND %K = %@",
+        predicateWithFormat:@"%K = %@ AND %K = %@ AND %K = %@",
             @"contactInfo", contactInfo,
             @"contactType", contactType,
-            @"contact",     teamAlertContact,
-            @"team",        team
+            @"contact",     teamAlertContact
     ];
     [request setPredicate:predicate];
     [request setFetchLimit:1];
 
     NSError * error;
-    NSArray * membershipArray = [context executeFetchRequest:request error:&error];
+    NSArray * contactInfoArray = [context executeFetchRequest:request error:&error];
     if ( error ) {
-        NSLog(@"Cannot Retrieve Membership! %@ %@", error, [error localizedDescription]);
+        NSLog(@"Cannot Retrieve Contact Info! %@ %@", error, [error localizedDescription]);
         return nil;
+    }
+
+    NSManagedObject * contactInfoEntity;
+    NSArray         * membershipArray = nil;
+    if ( [contactInfoArray count] ) {
+        contactInfoEntity = [contactInfoArray objectAtIndex:0];
+        NSEntityDescription * membershipEntityDescription = [NSEntityDescription entityForName:@"Membership"
+                                                                        inManagedObjectContext:context];
+
+        NSFetchRequest * membershipRequest = [[NSFetchRequest alloc] init];
+        NSPredicate    * membershipPredicate = [NSPredicate predicateWithFormat:@"%K = %@ AND %K = %@",
+                                                @"contactInfo", contactInfoEntity,
+                                                @"team",        team
+                                                ];
+
+        [membershipRequest setEntity:membershipEntityDescription];
+        [membershipRequest setPredicate:membershipPredicate];
+        [membershipRequest setFetchLimit:1];
+
+        membershipArray = [context executeFetchRequest:membershipRequest error:&error];
+
+        if ( error ) {
+            NSLog(@"Cannot Retrieve Membership! %@ %@", error, [error localizedDescription]);
+            return nil;
+        }
+    }
+    else {
+        contactInfoEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ContactInfo" inManagedObjectContext:context];
+
+        [contactInfoEntity setValue:contactInfo      forKey:@"contactInfo"];
+        [contactInfoEntity setValue:contactType      forKey:@"contactType"];
+        [contactInfoEntity setValue:teamAlertContact forKey:@"contact"];
     }
 
     // We actually need to do something
     if ( ![membershipArray count] ) {
         NSManagedObject *newMembership = [NSEntityDescription insertNewObjectForEntityForName:@"Membership" inManagedObjectContext:context];
-
-        [newMembership setValue:contactInfo      forKey:@"contactInfo"];
-        [newMembership setValue:contactType      forKey:@"contactType"];
-        [newMembership setValue:teamAlertContact forKey:@"contact"];
-        [newMembership setValue:team             forKey:@"team"];
+        [newMembership setValue:team              forKey:@"team"];
+        [newMembership setValue:contactInfoEntity forKey:@"contactInfo"];
     }
 
     return teamAlertContact;
