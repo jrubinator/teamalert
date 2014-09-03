@@ -174,7 +174,7 @@ const int kPHONE_ACTION_INDEX = 1;
     _selectedTeam       = [_teams objectAtIndex:senderButton.tag];
     NSString * teamName = [_selectedTeam valueForKeyPath:@"name"];
     NSString * emailOpt = [NSString stringWithFormat:@"Email %@ Team", teamName];
-    NSString * phoneOpt = [NSString stringWithFormat:@"Message %@ Team", teamName];
+    NSString * phoneOpt = [NSString stringWithFormat:@"Text %@ Team", teamName];
 
     UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil
                                                          delegate:self
@@ -238,7 +238,7 @@ const int kPHONE_ACTION_INDEX = 1;
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     if ( result == MessageComposeResultFailed ) {
         // TODO: try again?
-        NSLog(@"Failed to send message");
+        NSLog(@"Failed to send text");
     }
 
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -279,7 +279,7 @@ const int kPHONE_ACTION_INDEX = 1;
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     if ( result == MFMailComposeResultFailed || error != nil ) {
-        NSLog( @"Failed to send message with error: %@, %@", error, [error localizedDescription]);
+        NSLog( @"Failed to send email with error: %@, %@", error, [error localizedDescription]);
     }
 
     [self dismissViewControllerAnimated:YES completion:nil];
