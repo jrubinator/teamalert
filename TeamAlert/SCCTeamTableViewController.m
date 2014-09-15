@@ -217,7 +217,7 @@
 - (NSManagedObject*)makeMemberFromContact:(ABRecordRef)person
                                   forTeam:(NSManagedObject *)team
                         withContactMethod:(ABPropertyID)property
-                           withIdentifier:(ABMultiValueIdentifier)identifier
+                           withIdentifier:(ABMultiValueIdentifier)rawIdentifier
 {
     NSManagedObject * teamAlertContact = [self _findTeamAlertContactForABContact:person];
     if ( !teamAlertContact ) {
@@ -228,6 +228,7 @@
 
     NSString * contactInfo = nil;
     NSString * contactType = nil;
+    NSString * label       = nil;
     if ( property == kABPersonEmailProperty ) {
         contactType = @"email";
     }
@@ -237,22 +238,21 @@
     // TODO: Or Error
 
     if (ABMultiValueGetCount(phonesOrEmails) > 0) {
-        contactInfo = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phonesOrEmails, identifier);
+        contactInfo = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phonesOrEmails, rawIdentifier);
+        label       = (__bridge_transfer NSString*) ABMultiValueCopyLabelAtIndex(phonesOrEmails, rawIdentifier);
     }
     // TODO: Or Error
+
+    NSNumber * identifier = [NSNumber numberWithInt:rawIdentifier];
 
     CFRelease(phonesOrEmails);
 
     NSManagedObjectContext *context = [self managedObjectContext];
-    NSEntityDescription    *entityDescription = [NSEntityDescription entityForName:@"ContactInfo"
-                                                            inManagedObjectContext:context];
-
-    NSFetchRequest * request = [[NSFetchRequest alloc] init];
-    [request setEntity:entityDescription];
+    NSFetchRequest         *request = [NSFetchRequest fetchRequestWithEntityName:@"ContactInfo"];
 
     NSPredicate * predicate = [NSPredicate
         predicateWithFormat:@"%K = %@ AND %K = %@ AND %K = %@",
-            @"contactInfo", contactInfo,
+            @"identifier",  identifier,
             @"contactType", contactType,
             @"contact",     teamAlertContact
     ];
@@ -270,6 +270,12 @@
     NSArray         * membershipArray = nil;
     if ( [contactInfoArray count] ) {
         contactInfoEntity = [contactInfoArray objectAtIndex:0];
+
+        if ( ! [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:contactInfo] ) {
+            // TODO: error
+            // This should NEVER happen once contact syncing is a thing
+        }
+
         NSEntityDescription * membershipEntityDescription = [NSEntityDescription entityForName:@"Membership"
                                                                         inManagedObjectContext:context];
 
@@ -293,9 +299,14 @@
     else {
         contactInfoEntity = [NSEntityDescription insertNewObjectForEntityForName:@"ContactInfo" inManagedObjectContext:context];
 
-        [contactInfoEntity setValue:contactInfo      forKey:@"contactInfo"];
+        [contactInfoEntity setValue:identifier       forKey:@"identifier"];
         [contactInfoEntity setValue:contactType      forKey:@"contactType"];
         [contactInfoEntity setValue:teamAlertContact forKey:@"contact"];
+
+        // We *could* do these two updates for existing contacts as well
+        // But those will be covered by syncing!
+        [contactInfoEntity setValue:contactInfo forKey:@"contactInfo"];
+        [contactInfoEntity setValue:label       forKey:@"label"];
     }
 
     // We actually need to do something
