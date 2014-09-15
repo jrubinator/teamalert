@@ -3,6 +3,7 @@
     <entity name="Contact" syncable="YES">
         <attribute name="firstName" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recordID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="contactInfos" toMany="YES" deletionRule="Deny" destinationEntity="ContactInfo" inverseName="contact" inverseEntity="ContactInfo" syncable="YES"/>
         <fetchedProperty name="teams" optional="YES" syncable="YES">
@@ -25,6 +26,7 @@
         <relationship name="team" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="memberships" inverseEntity="Team" syncable="YES"/>
     </entity>
     <entity name="Team" syncable="YES">
+        <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="memberships" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Membership" inverseName="team" inverseEntity="Membership" syncable="YES"/>
         <fetchedProperty name="contacts" optional="YES" syncable="YES">

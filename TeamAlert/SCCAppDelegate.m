@@ -13,6 +13,7 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize lastSyncedWithAddressBook  = _lastSyncedWithAddressBook;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -22,6 +23,8 @@
         UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
         splitViewController.delegate = (id)navigationController.topViewController;
     }
+
+    _lastSyncedWithAddressBook = [NSDate date];
     return YES;
 }
 							
@@ -95,7 +98,7 @@
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
         /*
-         Replace this implementation with code to handle the error appropriately.
+         TODO: Replace this implementation with code to handle the error appropriately.
          
          abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
          
@@ -122,6 +125,11 @@
     }
     
     return _persistentStoreCoordinator;
+}
+
+- (NSDate *) lastSyncedWithAddressBook
+{
+    return _lastSyncedWithAddressBook;
 }
 
 #pragma mark - Application's Documents directory
