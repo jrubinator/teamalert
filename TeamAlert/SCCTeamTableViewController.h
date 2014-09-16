@@ -18,6 +18,7 @@
 @property (strong) NSMutableOrderedSet * members;
 
 - (NSManagedObjectContext *)managedObjectContext;
+- (ABAddressBookRef)addressBook;
 - (NSManagedObject*)inductContact:(ABRecordRef)person
                       contactType:(ABPropertyID)property
                        identifier:(ABMultiValueIdentifier)identifier;

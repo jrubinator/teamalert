@@ -166,7 +166,7 @@
 
     // TODO: make sure access enabled
     // TODO: handle errors from this creation
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    ABAddressBookRef addressBook = [self addressBook];
 
     NSManagedObjectContext * context = [self managedObjectContext];
 

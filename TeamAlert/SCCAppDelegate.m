@@ -8,7 +8,9 @@
 
 #import "SCCAppDelegate.h"
 
-@implementation SCCAppDelegate
+@implementation SCCAppDelegate {
+    ABAddressBookRef _addressBook;
+}
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -24,6 +26,7 @@
         splitViewController.delegate = (id)navigationController.topViewController;
     }
 
+    _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     _lastSyncedWithAddressBook = [NSDate date];
     return YES;
 }
@@ -125,6 +128,11 @@
     }
     
     return _persistentStoreCoordinator;
+}
+
+- (ABAddressBookRef) addressBook
+{
+    return _addressBook;
 }
 
 - (NSDate *) lastSyncedWithAddressBook

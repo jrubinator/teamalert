@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <AddressBook/AddressBook.h>
 
 @interface SCCAppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,5 +18,7 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSDate *lastSyncedWithAddressBook;
+
+- (ABAddressBookRef) addressBook;
 
 @end

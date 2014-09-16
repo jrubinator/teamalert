@@ -140,7 +140,7 @@
 }
 */
 
-#pragma mark - Manage Object Context
+#pragma mark - App Delegate Accesssors
 
 - (NSManagedObjectContext *)managedObjectContext {
     NSManagedObjectContext *context = nil;
@@ -149,6 +149,15 @@
         context = [delegate managedObjectContext];
     }
     return context;
+}
+
+- (ABAddressBookRef)addressBook {
+    ABAddressBookRef ab;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate respondsToSelector:@selector(addressBook)] ) {
+        ab = [delegate addressBook];
+    }
+    return ab;
 }
 
 # pragma mark - Contact Picker
