@@ -27,8 +27,21 @@
     }
 
     _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
-    _lastSyncedWithAddressBook = [NSDate date];
+    [self resetLastSyncedWithAddressBook];
+    ABAddressBookRegisterExternalChangeCallback(_addressBook, handleAddressBookChange, (__bridge void *)(self));
+
     return YES;
+}
+
+void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
+    /* To Whom It May Concern,
+     *
+     * It would be super awesome if info contained the changed (or any) information.
+     * It doesn't right now. Oh well.
+     *
+     * Sincerely,
+     * Persons attempting syncs with contacts */
+    [((__bridge SCCAppDelegate *) context) resetLastSyncedWithAddressBook];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -55,6 +68,8 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    ABAddressBookUnregisterExternalChangeCallback(_addressBook, handleAddressBookChange, (__bridge void *)(self));
+    CFRelease(_addressBook);
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
@@ -138,6 +153,11 @@
 - (NSDate *) lastSyncedWithAddressBook
 {
     return _lastSyncedWithAddressBook;
+}
+
+- (void) resetLastSyncedWithAddressBook
+{
+    _lastSyncedWithAddressBook = [NSDate date];
 }
 
 #pragma mark - Application's Documents directory
