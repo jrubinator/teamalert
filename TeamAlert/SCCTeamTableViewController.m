@@ -165,6 +165,13 @@
     ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
     picker.peoplePickerDelegate = self;
 
+    [picker setDisplayedProperties:
+        [NSArray arrayWithObjects:
+            [NSNumber numberWithInt:kABPersonEmailProperty],
+            [NSNumber numberWithInt:kABPersonPhoneProperty],
+            nil
+        ]
+    ];
     [self presentViewController:picker animated:YES completion:nil];
 }
 
@@ -175,29 +182,36 @@
 }
 
 
+// PRE IOS 8
 - (BOOL)peoplePickerNavigationController:
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person {
-
-    // Auto-pick?
-
-    [peoplePicker setDisplayedProperties:
-        [NSArray arrayWithObjects:
-            [NSNumber numberWithInt:kABPersonEmailProperty],
-            [NSNumber numberWithInt:kABPersonPhoneProperty],
-            nil
-         ]
-     ];
-
     return YES;
 }
 
+// PRE IOS 8
 - (BOOL)peoplePickerNavigationController:
 (ABPeoplePickerNavigationController *)peoplePicker
       shouldContinueAfterSelectingPerson:(ABRecordRef)person
                                 property:(ABPropertyID)property
                               identifier:(ABMultiValueIdentifier)identifier
 {
+    [self peoplePickerNavigationController:peoplePicker
+                           didSelectPerson:person
+                                  property:property
+                                identifier:identifier
+    ];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+    return NO;
+}
+
+// IOS 8+
+
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+                         didSelectPerson:(ABRecordRef)person
+                                property:(ABPropertyID)property
+                              identifier:(ABMultiValueIdentifier)identifier {
     if ( property != kABPersonPhoneProperty && property != kABPersonEmailProperty ) {
         // TODO: error
     }
@@ -206,9 +220,6 @@
     // http://stackoverflow.com/questions/1320931/how-to-correctly-use-abpersonviewcontroller-with-abpeoplepickernavigationcontrol
 
     [self inductContact:person contactType:property identifier:identifier];
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    return NO;
 }
 
 - (NSManagedObject*)inductContact:(ABRecordRef)person

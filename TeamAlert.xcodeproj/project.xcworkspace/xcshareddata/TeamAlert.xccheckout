@@ -10,29 +10,29 @@
 	<string>TeamAlert</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>78F78ED6-8C07-4551-A329-634B86566629</key>
+		<key>FA245B0D77F112044FB59CBA0162BDEB1EDA105F</key>
 		<string>https://github.com/jrubinator/teamalert.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>TeamAlert.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>78F78ED6-8C07-4551-A329-634B86566629</key>
+		<key>FA245B0D77F112044FB59CBA0162BDEB1EDA105F</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/jrubinator/teamalert.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>78F78ED6-8C07-4551-A329-634B86566629</string>
+	<string>FA245B0D77F112044FB59CBA0162BDEB1EDA105F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>78F78ED6-8C07-4551-A329-634B86566629</string>
+			<string>FA245B0D77F112044FB59CBA0162BDEB1EDA105F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>teamalert</string>
 		</dict>
