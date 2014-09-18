@@ -35,6 +35,8 @@ const int kPHONE_ACTION_INDEX = 1;
 {
     [super viewDidLoad];
 
+    // This is what looks good
+    [self.tableView setRowHeight:66.0f];
     // Not sure why our other Table View Controllers don't need this...
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
@@ -109,12 +111,6 @@ const int kPHONE_ACTION_INDEX = 1;
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Default is 44.0f, this is 65.0f
-    return [super tableView:tableView heightForRowAtIndexPath:indexPath] * 1.5f;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
