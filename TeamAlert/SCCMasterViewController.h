@@ -10,10 +10,11 @@
 #import <CoreData/CoreData.h>
 #import <MessageUI/MFMessageComposeViewController.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "SCCErrorDisplayDelegate.h"
 
 @class SCCDetailViewController;
 
-@interface SCCMasterViewController : UITableViewController <UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate>
+@interface SCCMasterViewController : UITableViewController <UIActionSheetDelegate, MFMessageComposeViewControllerDelegate, MFMailComposeViewControllerDelegate, SCCErrorDisplayDelegate>
 
 @property (strong, nonatomic) SCCDetailViewController *detailViewController;
 @property (weak, nonatomic) IBOutlet UIView *firstTeamView;

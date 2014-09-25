@@ -201,12 +201,7 @@ const int kPHONE_ACTION_INDEX = 1;
 - (void)sendTextToTeam:(NSManagedObject *)team {
     if(![MFMessageComposeViewController canSendText]) {
         // TODO Don't even get to this point
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                               message:@"This device does not support text messages!"
-                                                              delegate:nil
-                                                     cancelButtonTitle:@"OK"
-                                                     otherButtonTitles:nil];
-        [warningAlert show];
+        [self showErrorMessage:@"This device does not support text messages!"];
         return;
     }
 
@@ -217,12 +212,7 @@ const int kPHONE_ACTION_INDEX = 1;
 
     if( ![composer.recipients count] ) {
         // TODO Don't even get to this point
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                               message:@"This team has no one with phone numbers!"
-                                                              delegate:nil
-                                                     cancelButtonTitle:@"OK"
-                                                     otherButtonTitles:nil];
-        [warningAlert show];
+        [self showErrorMessage:@"This team has no one with phone numbers!"];
         return;
     }
     
@@ -243,12 +233,7 @@ const int kPHONE_ACTION_INDEX = 1;
 - (void)sendEmailToTeam:(NSManagedObject *)team {
     if(![MFMailComposeViewController canSendMail]) {
         // TODO Don't even get to this point
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                               message:@"This device does not support emails!"
-                                                              delegate:nil
-                                                     cancelButtonTitle:@"OK"
-                                                     otherButtonTitles:nil];
-        [warningAlert show];
+        [self showErrorMessage:@"This device does not support phone numbers!"];
         return;
     }
 
@@ -256,12 +241,7 @@ const int kPHONE_ACTION_INDEX = 1;
 
     if( ![recipients count] ) {
         // TODO Don't even get to this point
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                               message:@"This team has no one with email addresses!"
-                                                              delegate:nil
-                                                     cancelButtonTitle:@"OK"
-                                                     otherButtonTitles:nil];
-        [warningAlert show];
+        [self showErrorMessage:@"This team has no one with email addresses!"];
         return;
     }
 
@@ -323,6 +303,16 @@ const int kPHONE_ACTION_INDEX = 1;
     }
 
     return YES;
+}
+
+# pragma mark - error display
+-(void) showErrorMessage:(NSString *)message {
+    UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                           message:message
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil];
+    [warningAlert show];
 }
 
 @end
