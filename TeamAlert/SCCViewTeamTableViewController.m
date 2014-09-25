@@ -178,10 +178,14 @@
         }
 
         NSNumber * recordID = [contact valueForKey:@"recordID"];
-        ABRecordRef contactRecord = CFRetain(ABAddressBookGetPersonWithRecordID(addressBook, [recordID intValue]));
+        ABRecordRef contactRecord = ABAddressBookGetPersonWithRecordID(addressBook, [recordID intValue]);
 
+        // Okay, they exist. Retain the reference.
+        if ( contactRecord ) {
+            contactRecord = CFRetain(contactRecord);
+        }
         // Uh oh, something changed. Try to use name instead
-        if ( !contactRecord ) {
+        else {
             NSString * firstName = [contact valueForKey:@"firstName"];
             NSString * lastName  = [contact valueForKey:@"lastName"];
 
@@ -271,6 +275,12 @@
         }
         else {
             // As below, we may need to display the contact as deleted from other teams one day
+            for ( NSManagedObject * contactInfoEntity in [contact valueForKey:@"ContactInfos"] ) {
+                for ( NSManagedObject * membership in [contactInfoEntity valueForKey:@"Memberships"] ) {
+                    [context deleteObject:membership];
+                }
+                [context deleteObject:contactInfoEntity];
+            }
             [context deleteObject:contact];
         }
     }
