@@ -178,7 +178,7 @@
         }
 
         NSNumber * recordID = [contact valueForKey:@"recordID"];
-        ABRecordRef contactRecord = ABAddressBookGetPersonWithRecordID(addressBook, [recordID intValue]);
+        ABRecordRef contactRecord = CFRetain(ABAddressBookGetPersonWithRecordID(addressBook, [recordID intValue]));
 
         // Uh oh, something changed. Try to use name instead
         if ( !contactRecord ) {
