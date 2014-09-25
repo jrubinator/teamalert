@@ -212,14 +212,22 @@
                          didSelectPerson:(ABRecordRef)person
                                 property:(ABPropertyID)property
                               identifier:(ABMultiValueIdentifier)identifier {
+
     if ( property != kABPersonPhoneProperty && property != kABPersonEmailProperty ) {
         // TODO: error
     }
+    else if ( ABRecordGetRecordID(person) == kABRecordInvalidID ) {
+        // TODO: error better
+        // This is happening in IOS 8 simulator....
+        NSLog(@"Attempted to add invalid contact %@", person);
+    }
+    else {
 
-    // TODO: allow both at once? See
-    // http://stackoverflow.com/questions/1320931/how-to-correctly-use-abpersonviewcontroller-with-abpeoplepickernavigationcontrol
+        // TODO: allow both at once? See
+        // http://stackoverflow.com/questions/1320931/how-to-correctly-use-abpersonviewcontroller-with-abpeoplepickernavigationcontrol
 
-    [self inductContact:person contactType:property identifier:identifier];
+        [self inductContact:person contactType:property identifier:identifier];
+    }
 }
 
 - (NSManagedObject*)inductContact:(ABRecordRef)person
