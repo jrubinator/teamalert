@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
 #import <CoreData/CoreData.h>
+#import "SCCErrorDisplayDelegate.h"
 
-@interface SCCTeamTableViewController : UITableViewController <ABPeoplePickerNavigationControllerDelegate>
+@interface SCCTeamTableViewController : UITableViewController <ABPeoplePickerNavigationControllerDelegate, SCCErrorDisplayDelegate>
 
 - (IBAction)addContact:(id)sender;
 
@@ -23,5 +24,6 @@
                       contactType:(ABPropertyID)property
                        identifier:(ABMultiValueIdentifier)identifier;
 - (void)displayMember:(NSManagedObject *)member;
+- (BOOL)canAccessAddressBook;
 
 @end

@@ -16,6 +16,7 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize lastSyncedWithAddressBook  = _lastSyncedWithAddressBook;
+@synthesize canAccessAddressBook       = _canAccessAddressBook;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -145,7 +146,18 @@ void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info,
 
 - (ABAddressBookRef) addressBook
 {
+    if ( [self canAccessAddressBook] ) {
+        if ( ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined ) {
+            [self requestAddressBookAccess];
+        }
+    }
     return _addressBook;
+}
+
+- (void) requestAddressBookAccess {
+    ABAddressBookRequestAccessWithCompletion(_addressBook, ^(bool granted, CFErrorRef error) {
+        _canAccessAddressBook = granted;
+    });
 }
 
 - (NSDate *) lastSyncedWithAddressBook
@@ -155,12 +167,18 @@ void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info,
 
 - (void) refreshAddressBook
 {
+
     [self clearAddressBook];
 
-    _addressBook               = ABAddressBookCreateWithOptions(NULL, NULL);
+    _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
     ABAddressBookRegisterExternalChangeCallback(_addressBook, handleAddressBookChange, (__bridge void *)(self));
 
     _lastSyncedWithAddressBook = [NSDate date];
+
+    // Maybe they gave us access!
+    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+    _canAccessAddressBook        = status == kABAuthorizationStatusNotDetermined
+                                || status == kABAuthorizationStatusAuthorized;
 }
 
 - (void) clearAddressBook

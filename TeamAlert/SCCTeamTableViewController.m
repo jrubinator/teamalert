@@ -160,8 +160,22 @@
     return ab;
 }
 
+- (BOOL)canAccessAddressBook {
+    BOOL canAccessAddressBook = NO;
+    id delegate = [[UIApplication sharedApplication] delegate];
+    if ([delegate respondsToSelector:@selector(canAccessAddressBook)] ) {
+        canAccessAddressBook = [delegate canAccessAddressBook];
+    }
+    return canAccessAddressBook;
+}
+
 # pragma mark - Contact Picker
 - (IBAction)addContact:(id)sender {
+    if ( ![self canAccessAddressBook] ) {
+        [self showErrorMessage:@"Enable contact access under Phone Settings to add contacts."];
+        return;
+    }
+
     ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
     picker.peoplePickerDelegate = self;
 
@@ -389,6 +403,17 @@
     [newContact setValue:lastName  forKey:@"lastName"];
 
     return newContact;
+}
+
+
+# pragma mark - error display
+-(void) showErrorMessage:(NSString *)message {
+    UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                           message:message
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil];
+    [warningAlert show];
 }
 
 @end

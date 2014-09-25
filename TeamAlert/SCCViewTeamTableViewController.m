@@ -156,6 +156,11 @@
 }
 
 - (void)syncTeam:(NSManagedObject *)team {
+    if ( ![self canAccessAddressBook] ) {
+        // No point in trying to sync
+        return;
+    }
+
     NSDate * appLastSynced  = [self lastSyncedWithAddressBook];
     NSDate * teamLastSynced = [team valueForKey:@"lastSynced"];
 
