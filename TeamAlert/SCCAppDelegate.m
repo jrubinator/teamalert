@@ -26,9 +26,7 @@
         splitViewController.delegate = (id)navigationController.topViewController;
     }
 
-    _addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
-    [self resetLastSyncedWithAddressBook];
-    ABAddressBookRegisterExternalChangeCallback(_addressBook, handleAddressBookChange, (__bridge void *)(self));
+    [self refreshAddressBook];
 
     return YES;
 }
@@ -41,7 +39,7 @@ void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info,
      *
      * Sincerely,
      * Persons attempting syncs with contacts */
-    [((__bridge SCCAppDelegate *) context) resetLastSyncedWithAddressBook];
+    [((__bridge SCCAppDelegate *) context) refreshAddressBook];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -155,9 +153,22 @@ void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info,
     return _lastSyncedWithAddressBook;
 }
 
-- (void) resetLastSyncedWithAddressBook
+- (void) refreshAddressBook
 {
+    [self clearAddressBook];
+
+    _addressBook               = ABAddressBookCreateWithOptions(NULL, NULL);
+    ABAddressBookRegisterExternalChangeCallback(_addressBook, handleAddressBookChange, (__bridge void *)(self));
+
     _lastSyncedWithAddressBook = [NSDate date];
+}
+
+- (void) clearAddressBook
+{
+    if ( _addressBook ) {
+        ABAddressBookUnregisterExternalChangeCallback(_addressBook, handleAddressBookChange, (__bridge void *)(self));
+        CFRelease(_addressBook);
+    }
 }
 
 #pragma mark - Application's Documents directory
