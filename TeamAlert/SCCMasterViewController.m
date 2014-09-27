@@ -223,7 +223,7 @@ const int kPHONE_ACTION_INDEX = 1;
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     if ( result == MessageComposeResultFailed ) {
-        // TODO: try again?
+        // The UI is covered by the message app, which displays an appropriate banner message
         NSLog(@"Failed to send text");
     }
 

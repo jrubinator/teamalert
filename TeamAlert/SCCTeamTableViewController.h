@@ -23,6 +23,8 @@
 - (NSManagedObject*)inductContact:(ABRecordRef)person
                       contactType:(ABPropertyID)property
                        identifier:(ABMultiValueIdentifier)identifier;
+- (NSString *)getFullNameForPerson:(ABRecordRef)person;
+- (NSString *)getFullNameForContact:(NSManagedObject *)contact;
 - (void)displayMember:(NSManagedObject *)member;
 - (BOOL)canAccessAddressBook;
 

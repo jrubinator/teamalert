@@ -169,8 +169,6 @@
         return;
     }
 
-    // TODO: make sure access enabled
-    // TODO: handle errors from this creation
     ABAddressBookRef addressBook = [self addressBook];
 
     NSManagedObjectContext * context = [self managedObjectContext];
@@ -371,8 +369,13 @@
             // Yeeps! Not even a label match! At this point, the phone/email was surely deleted entirely.
             // And we can't find it even if it wasn't, so we'll delete it from Team Alert.
             if ( indexOfContactInfo == -1 ) {
-                // TODO: tell user!
-                NSLog(@"Could not sync %@: %@ for %@ %@", contactType, contactInfo, [contact valueForKey:@"firstName"],[contact valueForKey:@"lastName"]);
+                NSString * fullName = [self getFullNameForContact:contact];
+                NSLog(@"Could not sync %@: %@ for %@; deleting", contactType, contactInfo, fullName);
+                [self showErrorMessage:[NSString stringWithFormat:@"Contact %@'s %@ %@ appears to have been removed from your device, and will also be removed from Team Alert",
+                    fullName,
+                    contactType,
+                    contactInfo
+                ]];
                 for (NSManagedObject * membership in [contactInfoEntity valueForKey:@"memberships"]) {
                     [context deleteObject:membership];
                 }

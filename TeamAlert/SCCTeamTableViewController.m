@@ -72,6 +72,10 @@
 }
 
 - (void) displayMember:(NSManagedObject *)member {
+    if ( !member ) {
+        return;
+    }
+
     if ( ![self members] ) {
         self.members = [NSMutableOrderedSet orderedSetWithArray:[[self.team valueForKey:@"contacts"] allObjects]];
     }
@@ -216,13 +220,14 @@
                                 property:(ABPropertyID)property
                               identifier:(ABMultiValueIdentifier)identifier {
 
+    NSString * fullName;
     if ( property != kABPersonPhoneProperty && property != kABPersonEmailProperty ) {
-        // TODO: error
+        fullName = [self getFullNameForPerson:person];
+        NSLog(@"Attempted to add invalid property %d for contact %@", property, fullName);
     }
     else if ( ABRecordGetRecordID(person) == kABRecordInvalidID ) {
-        // TODO: error better
-        // This is happening in IOS 8 simulator....
-        NSLog(@"Attempted to add invalid contact %@: %@", [self getFullNameForPerson:person], person);
+        fullName = [self getFullNameForPerson:person];
+        NSLog(@"Attempted to add invalid contact %@: %@", fullName, person);
     }
     else {
 
@@ -230,7 +235,10 @@
         // http://stackoverflow.com/questions/1320931/how-to-correctly-use-abpersonviewcontroller-with-abpeoplepickernavigationcontrol
 
         [self inductContact:person contactType:property identifier:identifier];
+        return;
     }
+
+    [self showErrorMessage:[NSString stringWithFormat:@"There was an error adding %@ to the team", fullName]];
 }
 
 - (NSManagedObject*)inductContact:(ABRecordRef)person
@@ -239,6 +247,12 @@
 {
     NSManagedObject * team      = [self team];
     NSManagedObject * newMember = [self makeMemberFromContact:person forTeam:team withContactMethod:property withIdentifier:identifier];
+
+    if (! newMember) {
+        [self showErrorMessage:[
+            NSString stringWithFormat:@"There was an error adding %@ to the team", [self getFullNameForPerson:person]]
+        ];
+    }
 
     // Subclasses responsible for displaying the new member
     return newMember;
@@ -249,6 +263,23 @@
                         withContactMethod:(ABPropertyID)property
                            withIdentifier:(ABMultiValueIdentifier)rawIdentifier
 {
+    NSString * contactType = nil;
+
+    if ( ABRecordGetRecordID(person) == kABRecordInvalidID ) {
+        NSLog(@"Attempted to add invalid contact %@: %@", [self getFullNameForPerson:person], person);
+        return nil;
+    }
+    else if ( property == kABPersonEmailProperty ) {
+        contactType = @"email";
+    }
+    else if ( property == kABPersonPhoneProperty ) {
+        contactType = @"phoneNumber";
+    }
+    else {
+        NSLog(@"Attempted to add invalid property %d for contact %@", property, [self getFullNameForPerson:person]);
+        return nil;
+    }
+
     NSManagedObject * teamAlertContact = [self _findTeamAlertContactForABContact:person];
     if ( !teamAlertContact ) {
         teamAlertContact = [self _createTeamAlertContactFromABContact:person];
@@ -257,21 +288,16 @@
     ABMultiValueRef phonesOrEmails = ABRecordCopyValue(person, property);
 
     NSString * contactInfo = nil;
-    NSString * contactType = nil;
     NSString * label       = nil;
-    if ( property == kABPersonEmailProperty ) {
-        contactType = @"email";
-    }
-    else if ( property == kABPersonPhoneProperty ) {
-        contactType = @"phoneNumber";
-    }
-    // TODO: Or Error
 
     if (ABMultiValueGetCount(phonesOrEmails) > 0) {
         contactInfo = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phonesOrEmails, rawIdentifier);
         label       = (__bridge_transfer NSString*) ABMultiValueCopyLabelAtIndex(phonesOrEmails, rawIdentifier);
     }
-    // TODO: Or Error
+    else {
+        NSLog(@"Could not find %@ for contact %@: %@", contactType, [self getFullNameForPerson:person], person);
+        return nil;
+    }
 
     NSNumber * identifier = [NSNumber numberWithInt:rawIdentifier];
 
@@ -301,9 +327,17 @@
     if ( [contactInfoArray count] ) {
         contactInfoEntity = [contactInfoArray objectAtIndex:0];
 
-        if ( ! [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:contactInfo] ) {
-            // TODO: error
+        NSString * existingContactInfo = [contactInfoEntity valueForKey:@"contactInfo"];
+        if ( ! [existingContactInfo isEqualToString:contactInfo] ) {
             // This should NEVER happen once contact syncing is a thing
+            NSLog(@"Got unexpected %@ (%@), was expecting %@ for contact %@: %@",
+                  contactType,
+                  contactInfo,
+                  existingContactInfo,
+                  [self getFullNameForPerson:person],
+                  person
+            );
+            return nil;
         }
 
         NSEntityDescription * membershipEntityDescription = [NSEntityDescription entityForName:@"Membership"
