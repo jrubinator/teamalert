@@ -63,20 +63,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Contact" forIndexPath:indexPath];
 
     // Configure the cell...
-    NSObject *member = [self.members objectAtIndex:indexPath.row];
+    NSManagedObject *member = [self.members objectAtIndex:indexPath.row];
 
-    // Note we don't normalize these on input
-    // Because we (will) use them to keep contact info up to date
-    NSString * firstName = [member valueForKey:@"firstName"];
-    if ( firstName == nil ) {
-        firstName = @"";
-    }
-    NSString * lastName = [member valueForKey:@"lastName"];
-    if ( lastName == nil ) {
-        lastName = @"";
-    }
-
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@", firstName, lastName]];
+    [cell.textLabel setText:[self getFullNameForContact:member]];
     //[cell.detailTextLabel setText:[member valueForKey:@"phoneNumber"]];
 
     return cell;
@@ -233,7 +222,7 @@
     else if ( ABRecordGetRecordID(person) == kABRecordInvalidID ) {
         // TODO: error better
         // This is happening in IOS 8 simulator....
-        NSLog(@"Attempted to add invalid contact %@", person);
+        NSLog(@"Attempted to add invalid contact %@: %@", [self getFullNameForPerson:person], person);
     }
     else {
 
@@ -414,6 +403,35 @@
                                                  cancelButtonTitle:@"OK"
                                                  otherButtonTitles:nil];
     [warningAlert show];
+}
+
+-(NSString *) getFullNameForPerson:(ABRecordRef)person {
+    NSString * firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+    if ( firstName == nil ) {
+        firstName = @"";
+    }
+    NSString * lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+    if ( lastName == nil ) {
+        lastName = @"";
+    }
+
+    return [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+}
+
+-(NSString *) getFullNameForContact:(NSManagedObject *)contact {
+
+    // Note we don't normalize these on input
+    // Because we use them to keep contact info up to date
+    NSString * firstName = [contact valueForKey:@"firstName"];
+    if ( firstName == nil ) {
+        firstName = @"";
+    }
+    NSString * lastName = [contact valueForKey:@"lastName"];
+    if ( lastName == nil ) {
+        lastName = @"";
+    }
+
+    return [NSString stringWithFormat:@"%@ %@", firstName, lastName];
 }
 
 @end
