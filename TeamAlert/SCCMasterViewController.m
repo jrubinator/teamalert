@@ -299,7 +299,7 @@ const int kPHONE_ACTION_INDEX = 1;
 
     NSError *error = nil;
     if ( ![context save:&error] ) {
-        NSLog(@"Cannot Delete! %@ %@", error, [error localizedDescription]);
+        NSLog(@"Cannot delete team! %@ %@", error, [error localizedDescription]);
         return NO;
     }
 

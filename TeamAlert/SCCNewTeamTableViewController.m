@@ -119,12 +119,16 @@
 
         NSError *saveError = nil;
         if (![context save:&saveError]) {
+            [self showErrorMessage:@"Something went wrong saving your team."];
             NSLog(@"Could not save new team: %@, %@", saveError, [saveError localizedDescription]);
         }
 
         [self.navigationController popViewControllerAnimated:YES];
     }
     else {
+        // Should not be reached
+        self.navigationItem.rightBarButtonItem.enabled = false;
+        [self showErrorMessage:@"Something went wrong saving your team."];
         NSLog(@"An attempt was made to save a new team from an unexpected state");
     }
 

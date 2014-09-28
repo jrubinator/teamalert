@@ -65,6 +65,11 @@
             [self.members removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         }
+        else {
+            [self showErrorMessage:[
+                NSString stringWithFormat:@"Something went wrong deleting %@", [self getFullNameForContact:contact]
+            ]];
+        }
     }
 }
 /*
@@ -100,7 +105,8 @@
     NSError                * saveError = nil;
 
     if (![context save:&saveError]) {
-        NSLog(@"Could not save new team: %@, %@", saveError, [saveError localizedDescription]);
+        [self showErrorMessage:@"Something went wrong saving your team."];
+        NSLog(@"Could not save team: %@, %@", saveError, [saveError localizedDescription]);
     }
     else {
         [self displayMember:newMember];
@@ -127,7 +133,7 @@
     NSArray *contactMemberships = [context executeFetchRequest:request error:&contextError];
     if (contactMemberships == nil)
     {
-        NSLog(@"Maybe that contact wasn't associated with this team? Error: %@", contextError);
+        NSLog(@"Maybe that contact wasn't associated with this team? Error: %@ (%@)", contextError, [contextError localizedDescription]);
     }
     else {
         if ( [[contact valueForKey:@"teams"] count] == 1 ) {
