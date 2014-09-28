@@ -10,6 +10,7 @@
 
 #import "SCCDetailViewController.h"
 #import "SCCPaddedTableViewCell.h"
+#import "SCCDebug.h"
 
 @interface SCCMasterViewController () {
     NSMutableArray *_teams;
@@ -224,7 +225,7 @@ const int kPHONE_ACTION_INDEX = 1;
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result {
     if ( result == MessageComposeResultFailed ) {
         // The UI is covered by the message app, which displays an appropriate banner message
-        NSLog(@"Failed to send text");
+        DLog(@"Failed to send text");
     }
 
     [self dismissViewControllerAnimated:YES completion:nil];

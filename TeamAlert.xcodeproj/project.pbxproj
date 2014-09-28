@@ -86,6 +86,7 @@
 		617C6EF5190C5EC20036D3DD /* TeamAlertTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamAlertTests-Info.plist"; sourceTree = "<group>"; };
 		617C6EF7190C5EC20036D3DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamAlertTests.m; sourceTree = "<group>"; };
+		61EBCFAA19D89A7D00B8D016 /* SCCDebug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCDebug.h; sourceTree = "<group>"; };
 		61EDC582199C3F38006E07C7 /* alert-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-button.png"; sourceTree = "<group>"; };
 		61EDC583199C3F38006E07C7 /* alert-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-button@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +159,7 @@
 				617C6EDA190C5EC20036D3DD /* Main_iPhone.storyboard */,
 				617C6EDD190C5EC20036D3DD /* Main_iPad.storyboard */,
 				61035FA21933D38D00510ECD /* TeamAlertModel.xcdatamodeld */,
+				61EBCFAA19D89A7D00B8D016 /* SCCDebug.h */,
 				617C6ED7190C5EC20036D3DD /* SCCAppDelegate.h */,
 				617C6ED8190C5EC20036D3DD /* SCCAppDelegate.m */,
 				617C6EE0190C5EC20036D3DD /* SCCMasterViewController.h */,
