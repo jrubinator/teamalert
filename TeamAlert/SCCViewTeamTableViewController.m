@@ -167,6 +167,9 @@
         return;
     }
 
+    NSManagedObjectContext * context = [self managedObjectContext];
+    [context refreshObject:team mergeChanges:NO];
+
     NSDate * appLastSynced  = [self lastSyncedWithAddressBook];
     NSDate * teamLastSynced = [team valueForKey:@"lastSynced"];
 
@@ -176,8 +179,6 @@
     }
 
     ABAddressBookRef addressBook = [self addressBook];
-
-    NSManagedObjectContext * context = [self managedObjectContext];
 
     // Match 'em
     for (NSManagedObject * contact in [team valueForKey:@"contacts"]) {
@@ -284,6 +285,11 @@
         }
         else {
             // As below, we may need to display the contact as deleted from other teams one day
+
+            NSLog(@"Could not sync %@; deleting", contact);
+            [self showErrorMessage:[NSString stringWithFormat:@"Contact %@ appears to have been removed from your device, and will also be removed from TeamAlert", [self getFullNameForContact:contact]
+            ]];
+
             for ( NSManagedObject * contactInfoEntity in [contact valueForKey:@"ContactInfos"] ) {
                 for ( NSManagedObject * membership in [contactInfoEntity valueForKey:@"Memberships"] ) {
                     [context deleteObject:membership];
