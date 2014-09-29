@@ -373,11 +373,11 @@
             }
 
             // Yeeps! Not even a label match! At this point, the phone/email was surely deleted entirely.
-            // And we can't find it even if it wasn't, so we'll delete it from Team Alert.
+            // And we can't find it even if it wasn't, so we'll delete it from TeamAlert.
             if ( indexOfContactInfo == -1 ) {
                 NSString * fullName = [self getFullNameForContact:contact];
                 NSLog(@"Could not sync %@: %@ for %@; deleting", contactType, contactInfo, fullName);
-                [self showErrorMessage:[NSString stringWithFormat:@"Contact %@'s %@ %@ appears to have been removed from your device, and will also be removed from Team Alert",
+                [self showErrorMessage:[NSString stringWithFormat:@"Contact %@'s %@ %@ appears to have been removed from your device, and will also be removed from TeamAlert",
                     fullName,
                     contactType,
                     contactInfo
