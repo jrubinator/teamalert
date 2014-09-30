@@ -441,31 +441,31 @@
 
 -(NSString *) getFullNameForPerson:(ABRecordRef)person {
     NSString * firstName = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-    if ( firstName == nil ) {
-        firstName = @"";
-    }
     NSString * lastName  = (__bridge_transfer NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
-    if ( lastName == nil ) {
-        lastName = @"";
-    }
-
-    return [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+    return [self _getFullNameFromFirstName:firstName lastName:lastName];
 }
 
 -(NSString *) getFullNameForContact:(NSManagedObject *)contact {
 
     // Note we don't normalize these on input
     // Because we use them to keep contact info up to date
-    NSString * firstName = [contact valueForKey:@"firstName"];
-    if ( firstName == nil ) {
-        firstName = @"";
+    return [self _getFullNameFromFirstName:[contact valueForKey:@"firstName"] lastName:[contact valueForKey:@"lastName"]];
+
+}
+
+-(NSString *)_getFullNameFromFirstName:(NSString *)firstName lastName:(NSString *)lastName {
+    NSMutableString * fullName = [[NSMutableString alloc] init];
+    if ( firstName != nil ) {
+        [fullName setString:firstName];
+        if ( lastName != nil ) {
+            [fullName appendFormat:@" %@", lastName];
+        }
     }
-    NSString * lastName = [contact valueForKey:@"lastName"];
-    if ( lastName == nil ) {
-        lastName = @"";
+    else if ( lastName != nil ) {
+        [fullName setString:lastName];
     }
 
-    return [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+    return [NSString stringWithString:fullName];
 }
 
 @end

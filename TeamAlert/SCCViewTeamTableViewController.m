@@ -196,14 +196,13 @@
         }
         // Uh oh, something changed. Try to use name instead
         else {
-            NSString * firstName = [contact valueForKey:@"firstName"];
-            NSString * lastName  = [contact valueForKey:@"lastName"];
+            NSString * fullName = [self getFullNameForContact:contact];
 
             NSArray * deviceContacts =
                 (__bridge_transfer NSArray *)ABAddressBookCopyPeopleWithName(
                     addressBook,
                     // This appears to be blind to name-order, and spaces
-                    (__bridge CFStringRef) [NSString stringWithFormat:@"%@ %@", firstName, lastName]
+                    (__bridge CFStringRef) [fullName copy]
                 );
 
             // If none were found, this loop is skipped and the contact is deleted.
@@ -231,7 +230,7 @@
                                 if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:anEmail] ) {
                                     if ( contactRecord ) {
                                         // TODO: Prompt the user!
-                                        NSLog(@"Multiple contacts match email for %@ %@: %@", firstName, lastName, anEmail);
+                                        NSLog(@"Multiple contacts match email for %@: %@", fullName, anEmail);
                                     }
                                     else {
                                         contactRecord = person;
@@ -259,7 +258,7 @@
                                 if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:aPhone] ) {
                                     if ( contactRecord ) {
                                         // TODO: Prompt the user!
-                                        NSLog(@"Multiple contacts match phone # for %@ %@: %@", firstName, lastName, aPhone);
+                                        NSLog(@"Multiple contacts match phone # for %@: %@", fullName, aPhone);
                                     }
                                     else {
                                         contactRecord = person;
@@ -354,7 +353,7 @@
                 if ( [contactInfo isEqualToString:aPhoneOrEmail] ) {
                     if ( indexOfContactInfo != -1 ) {
                         // TODO: Prompt the user!
-                        NSLog(@"Multiple %@s match for %@ %@: %@", contactType, [contact valueForKey:@"firstName"], [contact valueForKey:@"lastName"], aPhoneOrEmail);
+                        NSLog(@"Multiple %@s match for %@: %@", contactType, [self getFullNameForContact:contact], aPhoneOrEmail);
                     }
                     else {
                         indexOfContactInfo = index;
@@ -369,7 +368,7 @@
                     if ( [contactInfo isEqualToString:aLabel] ) {
                         if ( indexOfContactInfo != -1 ) {
                             // TODO: Prompt the user!
-                            NSLog(@"Multiple labels match %@ for %@ %@: %@", contactType, [contact valueForKey:@"firstName"], [contact valueForKey:@"lastName"], aLabel);
+                            NSLog(@"Multiple labels match %@ for %@: %@", contactType, [self getFullNameForContact:contact], aLabel);
                         }
                         else {
                             indexOfContactInfo = index;
