@@ -5,6 +5,9 @@
 //  Created by Jonathan Rubin on 4/26/14.
 //  Copyright (c) 2014 Soccer Coach Coach. All rights reserved.
 //
+// This file has been removed from the iPhone storyboard, but remains as a blueprint
+// for how we'll want to display things once we support iPads
+//
 
 #import "SCCDetailViewController.h"
 
