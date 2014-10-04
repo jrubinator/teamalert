@@ -157,6 +157,13 @@ const int kPHONE_ACTION_INDEX = 1;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        self.navigationItem.backBarButtonItem = [
+            [UIBarButtonItem alloc] initWithTitle:@"All Teams"
+                                            style:UIBarButtonItemStylePlain
+                                           target:nil
+                                           action:nil
+        ];
+
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NSDate *team = _teams[indexPath.row];
         [[segue destinationViewController] setDetailItem:team];
