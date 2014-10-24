@@ -286,7 +286,7 @@
             // As below, we may need to display the contact as deleted from other teams one day
 
             NSLog(@"Could not sync %@; deleting", contact);
-            [self showErrorMessage:[NSString stringWithFormat:@"Contact %@ appears to have been removed from your device, and will also be removed from TeamAlert", [self getFullNameForContact:contact]
+            [self showErrorMessage:[NSString stringWithFormat:@"Contact %@ appears to have been removed from your device, and will also be removed from TeamMail", [self getFullNameForContact:contact]
             ]];
 
             for ( NSManagedObject * contactInfoEntity in [contact valueForKey:@"ContactInfos"] ) {
@@ -382,7 +382,7 @@
             if ( indexOfContactInfo == -1 ) {
                 NSString * fullName = [self getFullNameForContact:contact];
                 NSLog(@"Could not sync %@: %@ for %@; deleting", contactType, contactInfo, fullName);
-                [self showErrorMessage:[NSString stringWithFormat:@"Contact %@'s %@ %@ appears to have been removed from your device, and will also be removed from TeamAlert",
+                [self showErrorMessage:[NSString stringWithFormat:@"Contact %@'s %@ %@ appears to have been removed from your device, and will also be removed from TeamMail",
                     fullName,
                     contactType,
                     contactInfo
