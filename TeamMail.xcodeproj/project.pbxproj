@@ -64,14 +64,14 @@
 		617089071958E40400EB23A3 /* SCCTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCTeamTableViewController.m; sourceTree = "<group>"; };
 		61708909195CF44900EB23A3 /* SCCViewTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCViewTeamTableViewController.h; sourceTree = "<group>"; };
 		6170890A195CF44900EB23A3 /* SCCViewTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCViewTeamTableViewController.m; sourceTree = "<group>"; };
-		617C6EC5190C5EC20036D3DD /* TeamAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		617C6EC5190C5EC20036D3DD /* TeamMail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamMail.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		617C6EC8190C5EC20036D3DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		617C6ECA190C5EC20036D3DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		617C6ECC190C5EC20036D3DD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		617C6ED0190C5EC20036D3DD /* TeamAlert-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamAlert-Info.plist"; sourceTree = "<group>"; };
+		617C6ED0190C5EC20036D3DD /* TeamMail-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamMail-Info.plist"; sourceTree = "<group>"; };
 		617C6ED2190C5EC20036D3DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		617C6ED4190C5EC20036D3DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		617C6ED6190C5EC20036D3DD /* TeamAlert-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamAlert-Prefix.pch"; sourceTree = "<group>"; };
+		617C6ED6190C5EC20036D3DD /* TeamMail-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamMail-Prefix.pch"; sourceTree = "<group>"; };
 		617C6ED7190C5EC20036D3DD /* SCCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCAppDelegate.h; sourceTree = "<group>"; };
 		617C6ED8190C5EC20036D3DD /* SCCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCCAppDelegate.m; sourceTree = "<group>"; };
 		617C6EDB190C5EC20036D3DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
@@ -81,9 +81,9 @@
 		617C6EE3190C5EC20036D3DD /* SCCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCDetailViewController.h; sourceTree = "<group>"; };
 		617C6EE4190C5EC20036D3DD /* SCCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCCDetailViewController.m; sourceTree = "<group>"; };
 		617C6EE6190C5EC20036D3DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		617C6EEC190C5EC20036D3DD /* TeamAlertTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeamAlertTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		617C6EEC190C5EC20036D3DD /* TeamMailTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TeamMailTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		617C6EED190C5EC20036D3DD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		617C6EF5190C5EC20036D3DD /* TeamAlertTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamAlertTests-Info.plist"; sourceTree = "<group>"; };
+		617C6EF5190C5EC20036D3DD /* TeamMailTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamMailTests-Info.plist"; sourceTree = "<group>"; };
 		617C6EF7190C5EC20036D3DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamAlertTests.m; sourceTree = "<group>"; };
 		61EBCFAA19D89A7D00B8D016 /* SCCDebug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCDebug.h; sourceTree = "<group>"; };
@@ -132,8 +132,8 @@
 		617C6EC6190C5EC20036D3DD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				617C6EC5190C5EC20036D3DD /* TeamAlert.app */,
-				617C6EEC190C5EC20036D3DD /* TeamAlertTests.xctest */,
+				617C6EC5190C5EC20036D3DD /* TeamMail.app */,
+				617C6EEC190C5EC20036D3DD /* TeamMailTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -188,10 +188,10 @@
 			children = (
 				61EDC582199C3F38006E07C7 /* alert-button.png */,
 				61EDC583199C3F38006E07C7 /* alert-button@2x.png */,
-				617C6ED0190C5EC20036D3DD /* TeamAlert-Info.plist */,
+				617C6ED0190C5EC20036D3DD /* TeamMail-Info.plist */,
 				617C6ED1190C5EC20036D3DD /* InfoPlist.strings */,
 				617C6ED4190C5EC20036D3DD /* main.m */,
-				617C6ED6190C5EC20036D3DD /* TeamAlert-Prefix.pch */,
+				617C6ED6190C5EC20036D3DD /* TeamMail-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 		617C6EF4190C5EC20036D3DD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				617C6EF5190C5EC20036D3DD /* TeamAlertTests-Info.plist */,
+				617C6EF5190C5EC20036D3DD /* TeamMailTests-Info.plist */,
 				617C6EF6190C5EC20036D3DD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -217,9 +217,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		617C6EC4190C5EC20036D3DD /* TeamAlert */ = {
+		617C6EC4190C5EC20036D3DD /* TeamMail */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 617C6EFD190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlert" */;
+			buildConfigurationList = 617C6EFD190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamMail" */;
 			buildPhases = (
 				617C6EC1190C5EC20036D3DD /* Sources */,
 				617C6EC2190C5EC20036D3DD /* Frameworks */,
@@ -229,14 +229,14 @@
 			);
 			dependencies = (
 			);
-			name = TeamAlert;
+			name = TeamMail;
 			productName = TeamAlert;
-			productReference = 617C6EC5190C5EC20036D3DD /* TeamAlert.app */;
+			productReference = 617C6EC5190C5EC20036D3DD /* TeamMail.app */;
 			productType = "com.apple.product-type.application";
 		};
-		617C6EEB190C5EC20036D3DD /* TeamAlertTests */ = {
+		617C6EEB190C5EC20036D3DD /* TeamMailTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 617C6F00190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlertTests" */;
+			buildConfigurationList = 617C6F00190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamMailTests" */;
 			buildPhases = (
 				617C6EE8190C5EC20036D3DD /* Sources */,
 				617C6EE9190C5EC20036D3DD /* Frameworks */,
@@ -247,9 +247,9 @@
 			dependencies = (
 				617C6EF2190C5EC20036D3DD /* PBXTargetDependency */,
 			);
-			name = TeamAlertTests;
+			name = TeamMailTests;
 			productName = TeamAlertTests;
-			productReference = 617C6EEC190C5EC20036D3DD /* TeamAlertTests.xctest */;
+			productReference = 617C6EEC190C5EC20036D3DD /* TeamMailTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -270,7 +270,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 617C6EC0190C5EC20036D3DD /* Build configuration list for PBXProject "TeamAlert" */;
+			buildConfigurationList = 617C6EC0190C5EC20036D3DD /* Build configuration list for PBXProject "TeamMail" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -283,8 +283,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				617C6EC4190C5EC20036D3DD /* TeamAlert */,
-				617C6EEB190C5EC20036D3DD /* TeamAlertTests */,
+				617C6EC4190C5EC20036D3DD /* TeamMail */,
+				617C6EEB190C5EC20036D3DD /* TeamMailTests */,
 			);
 		};
 /* End PBXProject section */
@@ -344,7 +344,7 @@
 /* Begin PBXTargetDependency section */
 		617C6EF2190C5EC20036D3DD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 617C6EC4190C5EC20036D3DD /* TeamAlert */;
+			target = 617C6EC4190C5EC20036D3DD /* TeamMail */;
 			targetProxy = 617C6EF1190C5EC20036D3DD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -465,10 +465,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
-				INFOPLIST_FILE = "TeamAlert/TeamAlert-Info.plist";
+				GCC_PREFIX_HEADER = "TeamAlert/TeamMail-Prefix.pch";
+				INFOPLIST_FILE = "TeamAlert/TeamMail-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TeamMail;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -482,10 +482,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
-				INFOPLIST_FILE = "TeamAlert/TeamAlert-Info.plist";
+				GCC_PREFIX_HEADER = "TeamAlert/TeamMail-Prefix.pch";
+				INFOPLIST_FILE = "TeamAlert/TeamMail-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TeamMail;
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -506,8 +506,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "TeamAlertTests/TeamAlertTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "TeamAlertTests/TeamMailTests-Info.plist";
+				PRODUCT_NAME = TeamMailTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -524,8 +524,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
-				INFOPLIST_FILE = "TeamAlertTests/TeamAlertTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "TeamAlertTests/TeamMailTests-Info.plist";
+				PRODUCT_NAME = TeamMailTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -534,7 +534,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		617C6EC0190C5EC20036D3DD /* Build configuration list for PBXProject "TeamAlert" */ = {
+		617C6EC0190C5EC20036D3DD /* Build configuration list for PBXProject "TeamMail" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				617C6EFB190C5EC20036D3DD /* Debug */,
@@ -543,7 +543,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		617C6EFD190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlert" */ = {
+		617C6EFD190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamMail" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				617C6EFE190C5EC20036D3DD /* Debug */,
@@ -552,7 +552,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		617C6F00190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamAlertTests" */ = {
+		617C6F00190C5EC20036D3DD /* Build configuration list for PBXNativeTarget "TeamMailTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				617C6F01190C5EC20036D3DD /* Debug */,

@@ -74,7 +74,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="TeamAlert" id="tQt-TN-PWz">
+                    <navigationItem key="navigationItem" title="TeamMail" id="tQt-TN-PWz">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="qmU-Dn-ugV"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="z8m-yA-Uby">
                             <connections>
