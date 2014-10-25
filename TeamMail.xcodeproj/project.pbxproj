@@ -494,14 +494,14 @@
 		617C6F01190C5EC20036D3DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamAlert.app/TeamAlert";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamMail.app/TeamMail";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
+				GCC_PREFIX_HEADER = "TeamAlert/TeamMail-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -516,14 +516,14 @@
 		617C6F02190C5EC20036D3DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamAlert.app/TeamAlert";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamMail.app/TeamMail";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "TeamAlert/TeamAlert-Prefix.pch";
+				GCC_PREFIX_HEADER = "TeamAlert/TeamMail-Prefix.pch";
 				INFOPLIST_FILE = "TeamAlertTests/TeamMailTests-Info.plist";
 				PRODUCT_NAME = TeamMailTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
