@@ -142,13 +142,16 @@ void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info,
     if ( !_canAccessAddressBook ) {
         if ( ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined ) {
             ABAddressBookRequestAccessWithCompletion(_addressBook, ^(bool granted, CFErrorRef error) {
-                _canAccessAddressBook = granted;
-                if ( _canAccessAddressBook ) {
-                    successCallback();
-                }
-                else {
-                    failureCallback();
-                }
+                // Frequently we have UI results, so make sure they go in the main queue
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    _canAccessAddressBook = granted;
+                    if ( _canAccessAddressBook ) {
+                        successCallback();
+                    }
+                    else {
+                        failureCallback();
+                    }
+                });
             });
         }
         else {
