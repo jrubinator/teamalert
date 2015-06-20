@@ -9,14 +9,14 @@
 #import "SCCAppDelegate.h"
 
 @implementation SCCAppDelegate {
-    ABAddressBookRef _addressBook;
+    bool _canAccessAddressBook;
 }
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize lastSyncedWithAddressBook  = _lastSyncedWithAddressBook;
-@synthesize canAccessAddressBook       = _canAccessAddressBook;
+@synthesize addressBook                = _addressBook;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -137,20 +137,27 @@ void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info,
     return _persistentStoreCoordinator;
 }
 
-- (ABAddressBookRef) addressBook
-{
-    if ( [self canAccessAddressBook] ) {
+- (void) ensureAddressBookAccessOnSuccess:(void (^)(void))successCallback
+                                onFailure:(void (^)(void))failureCallback {
+    if ( !_canAccessAddressBook ) {
         if ( ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined ) {
-            [self requestAddressBookAccess];
+            ABAddressBookRequestAccessWithCompletion(_addressBook, ^(bool granted, CFErrorRef error) {
+                _canAccessAddressBook = granted;
+                if ( _canAccessAddressBook ) {
+                    successCallback();
+                }
+                else {
+                    failureCallback();
+                }
+            });
+        }
+        else {
+            failureCallback();
         }
     }
-    return _addressBook;
-}
-
-- (void) requestAddressBookAccess {
-    ABAddressBookRequestAccessWithCompletion(_addressBook, ^(bool granted, CFErrorRef error) {
-        _canAccessAddressBook = granted;
-    });
+    else {
+        successCallback();
+    }
 }
 
 - (NSDate *) lastSyncedWithAddressBook
@@ -169,9 +176,7 @@ void handleAddressBookChange(ABAddressBookRef addressBook, CFDictionaryRef info,
     _lastSyncedWithAddressBook = [NSDate date];
 
     // Maybe they gave us access!
-    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-    _canAccessAddressBook        = status == kABAuthorizationStatusNotDetermined
-                                || status == kABAuthorizationStatusAuthorized;
+    _canAccessAddressBook = ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized;
 }
 
 - (void) clearAddressBook

@@ -153,33 +153,37 @@
     return ab;
 }
 
-- (BOOL)canAccessAddressBook {
-    BOOL canAccessAddressBook = NO;
+- (void) ensureAddressBookAccessOnSuccess:(void (^)(void))successCallback
+                                onFailure:(void (^)(void))failureCallback {
     id delegate = [[UIApplication sharedApplication] delegate];
-    if ([delegate respondsToSelector:@selector(canAccessAddressBook)] ) {
-        canAccessAddressBook = [delegate canAccessAddressBook];
+    if ([delegate respondsToSelector:@selector(ensureAddressBookAccessOnSuccess:onFailure:)] ) {
+        [delegate ensureAddressBookAccessOnSuccess:successCallback onFailure:failureCallback];
     }
-    return canAccessAddressBook;
+    else {
+        [self showErrorMessage:@"Unable to verify access to contacts."];
+    }
 }
 
 # pragma mark - Contact Picker
 - (IBAction)addContact:(id)sender {
-    if ( ![self canAccessAddressBook] ) {
-        [self showErrorMessage:@"Enable contact access under Phone Settings to add contacts."];
-        return;
+    [self ensureAddressBookAccessOnSuccess:^{
+        ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+        picker.peoplePickerDelegate = self;
+
+        [picker setDisplayedProperties:
+         [NSArray arrayWithObjects:
+          [NSNumber numberWithInt:kABPersonEmailProperty],
+          [NSNumber numberWithInt:kABPersonPhoneProperty],
+          nil
+          ]
+         ];
+        [self presentViewController:picker animated:YES completion:nil];
     }
-
-    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
-
-    [picker setDisplayedProperties:
-        [NSArray arrayWithObjects:
-            [NSNumber numberWithInt:kABPersonEmailProperty],
-            [NSNumber numberWithInt:kABPersonPhoneProperty],
-            nil
-        ]
+    onFailure:^{
+        [self showErrorMessage:@"Enable contact access under Phone Settings to add contacts."];
+    }
     ];
-    [self presentViewController:picker animated:YES completion:nil];
+
 }
 
 - (void)peoplePickerNavigationControllerDidCancel:

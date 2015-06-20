@@ -18,8 +18,6 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (readonly, strong, nonatomic) NSDate *lastSyncedWithAddressBook;
-@property (readonly, nonatomic) BOOL canAccessAddressBook;
-
-- (ABAddressBookRef) addressBook;
+@property (readonly, nonatomic) ABAddressBookRef addressBook;
 
 @end

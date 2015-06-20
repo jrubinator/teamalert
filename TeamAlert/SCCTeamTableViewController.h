@@ -26,6 +26,7 @@
 - (NSString *)getFullNameForPerson:(ABRecordRef)person;
 - (NSString *)getFullNameForContact:(NSManagedObject *)contact;
 - (void)displayMember:(NSManagedObject *)member;
-- (BOOL)canAccessAddressBook;
+- (void) ensureAddressBookAccessOnSuccess:(void (^)(void))successCallback
+                                onFailure:(void (^)(void))failureCallback;
 
 @end

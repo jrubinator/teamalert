@@ -162,150 +162,152 @@
 }
 
 - (void)syncTeam:(NSManagedObject *)team {
-    if ( ![self canAccessAddressBook] ) {
-        // No point in trying to sync
-        return;
-    }
 
-    NSManagedObjectContext * context = [self managedObjectContext];
-    [context refreshObject:team mergeChanges:NO];
+    typedef void (^voidBlock)(void);
+    voidBlock onSuccess = ^{
 
-    NSDate * appLastSynced  = [self lastSyncedWithAddressBook];
-    NSDate * teamLastSynced = [team valueForKey:@"lastSynced"];
+        NSManagedObjectContext * context = [self managedObjectContext];
+        [context refreshObject:team mergeChanges:NO];
 
-    // Synced as recently as we need
-    if ( appLastSynced && teamLastSynced && [appLastSynced compare:teamLastSynced] == NSOrderedAscending ) {
-        return;
-    }
+        NSDate * appLastSynced  = [self lastSyncedWithAddressBook];
+        NSDate * teamLastSynced = [team valueForKey:@"lastSynced"];
 
-    ABAddressBookRef addressBook = [self addressBook];
-
-    // Match 'em
-    for (NSManagedObject * contact in [team valueForKey:@"contacts"]) {
-        NSDate * contactLastSynced = [contact valueForKey:@"lastSynced"];
-        if ( appLastSynced && contactLastSynced && [appLastSynced compare:contactLastSynced] == NSOrderedAscending ) {
-            continue;
+        // Synced as recently as we need
+        if ( appLastSynced && teamLastSynced && [appLastSynced compare:teamLastSynced] == NSOrderedAscending ) {
+            return;
         }
 
-        NSNumber * recordID = [contact valueForKey:@"recordID"];
-        ABRecordRef contactRecord = ABAddressBookGetPersonWithRecordID(addressBook, [recordID intValue]);
+        ABAddressBookRef addressBook = [self addressBook];
 
-        // Okay, they exist. Retain the reference.
-        if ( contactRecord ) {
-            contactRecord = CFRetain(contactRecord);
-        }
-        // Uh oh, something changed. Try to use name instead
-        else {
-            NSString * fullName = [self getFullNameForContact:contact];
+        // Match 'em
+        for (NSManagedObject * contact in [team valueForKey:@"contacts"]) {
+            NSDate * contactLastSynced = [contact valueForKey:@"lastSynced"];
+            if ( appLastSynced && contactLastSynced && [appLastSynced compare:contactLastSynced] == NSOrderedAscending ) {
+                continue;
+            }
 
-            NSArray * deviceContacts =
+            NSNumber * recordID = [contact valueForKey:@"recordID"];
+            ABRecordRef contactRecord = ABAddressBookGetPersonWithRecordID(addressBook, [recordID intValue]);
+
+            // Okay, they exist. Retain the reference.
+            if ( contactRecord ) {
+                contactRecord = CFRetain(contactRecord);
+            }
+            // Uh oh, something changed. Try to use name instead
+            else {
+                NSString * fullName = [self getFullNameForContact:contact];
+
+                NSArray * deviceContacts =
                 (__bridge_transfer NSArray *)ABAddressBookCopyPeopleWithName(
                     addressBook,
                     // This appears to be blind to name-order, and spaces
                     (__bridge CFStringRef) [fullName copy]
                 );
 
-            // If none were found, this loop is skipped and the contact is deleted.
-            // Otherwise find a matching contact
-            for (int i = 0; i < [deviceContacts count]; i++) {
-                ABRecordRef person = (__bridge ABRecordRef)([deviceContacts objectAtIndex:i]);
-                ABMultiValueRef phoneNumbers    = nil;
-                ABMultiValueRef emails          = nil;
-                for ( NSManagedObject * contactInfoEntity in [contact valueForKey:@"contactInfos"] ) {
-                    NSString * contactType = [contactInfoEntity valueForKey:@"contactType"];
-                    if ( [contactType isEqualToString:@"email"] ) {
-                        if ( emails == nil ) { emails = ABRecordCopyValue(person, kABPersonEmailProperty); }
-                        ABMultiValueIdentifier identifier = [[contactInfoEntity valueForKey:@"identifier"] intValue];
-                        CFIndex  index     = ABMultiValueGetIndexForIdentifier(emails, identifier);
-                        NSString * anEmail = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emails, index);
+                // If none were found, this loop is skipped and the contact is deleted.
+                // Otherwise find a matching contact
+                for (int i = 0; i < [deviceContacts count]; i++) {
+                    ABRecordRef person = (__bridge ABRecordRef)([deviceContacts objectAtIndex:i]);
+                    ABMultiValueRef phoneNumbers    = nil;
+                    ABMultiValueRef emails          = nil;
+                    for ( NSManagedObject * contactInfoEntity in [contact valueForKey:@"contactInfos"] ) {
+                        NSString * contactType = [contactInfoEntity valueForKey:@"contactType"];
+                        if ( [contactType isEqualToString:@"email"] ) {
+                            if ( emails == nil ) { emails = ABRecordCopyValue(person, kABPersonEmailProperty); }
+                            ABMultiValueIdentifier identifier = [[contactInfoEntity valueForKey:@"identifier"] intValue];
+                            CFIndex  index     = ABMultiValueGetIndexForIdentifier(emails, identifier);
+                            NSString * anEmail = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emails, index);
 
-                        if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:anEmail] ) {
-                            contactRecord = person;
+                            if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:anEmail] ) {
+                                contactRecord = person;
+                            }
+                            else {
+                                // identifier did not match
+                                // We're going to be really sure this is the cont
+                                for (CFIndex index = 0; index < ABMultiValueGetCount(emails); index++) {
+                                    NSString *anEmail = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emails, index);
+                                    if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:anEmail] ) {
+                                        if ( contactRecord ) {
+                                            // TODO: Prompt the user!
+                                            NSLog(@"Multiple contacts match email for %@: %@", fullName, anEmail);
+                                        }
+                                        else {
+                                            contactRecord = person;
+                                        }
+                                        // Seems to match, back to outer for loop
+                                        break;
+                                    }
+                                }
+                            }
                         }
-                        else {
-                            // identifier did not match
-                            // We're going to be really sure this is the cont
-                            for (CFIndex index = 0; index < ABMultiValueGetCount(emails); index++) {
-                                NSString *anEmail = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(emails, index);
-                                if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:anEmail] ) {
-                                    if ( contactRecord ) {
-                                        // TODO: Prompt the user!
-                                        NSLog(@"Multiple contacts match email for %@: %@", fullName, anEmail);
+                        else if ( [contactType isEqualToString:@"phoneNumber"] ) {
+                            if ( phoneNumbers == nil ) { phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty); }
+                            ABMultiValueIdentifier identifier = [[contactInfoEntity valueForKey:@"identifier"] intValue];
+                            CFIndex  index   = ABMultiValueGetIndexForIdentifier(phoneNumbers, identifier);
+                            NSString *aPhone = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, index);
+
+                            if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:aPhone] ) {
+                                contactRecord = person;
+                            }
+                            else {
+                                // identifier did not match
+                                // We're going to be really sure this is the cont
+                                for (CFIndex index = 0; index < ABMultiValueGetCount(phoneNumbers); index++) {
+                                    NSString *aPhone = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers,index);
+                                    if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:aPhone] ) {
+                                        if ( contactRecord ) {
+                                            // TODO: Prompt the user!
+                                            NSLog(@"Multiple contacts match phone # for %@: %@", fullName, aPhone);
+                                        }
+                                        else {
+                                            contactRecord = person;
+                                        }
+                                        // Seems to match, back to outer for loop
+                                        break;
                                     }
-                                    else {
-                                        contactRecord = person;
-                                    }
-                                    // Seems to match, back to outer for loop
-                                    break;
                                 }
                             }
                         }
                     }
-                    else if ( [contactType isEqualToString:@"phoneNumber"] ) {
-                        if ( phoneNumbers == nil ) { phoneNumbers = ABRecordCopyValue(person, kABPersonPhoneProperty); }
-                        ABMultiValueIdentifier identifier = [[contactInfoEntity valueForKey:@"identifier"] intValue];
-                        CFIndex  index   = ABMultiValueGetIndexForIdentifier(phoneNumbers, identifier);
-                        NSString *aPhone = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers, index);
 
-                        if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:aPhone] ) {
-                            contactRecord = person;
-                        }
-                        else {
-                            // identifier did not match
-                            // We're going to be really sure this is the cont
-                            for (CFIndex index = 0; index < ABMultiValueGetCount(phoneNumbers); index++) {
-                                NSString *aPhone = (__bridge_transfer NSString*) ABMultiValueCopyValueAtIndex(phoneNumbers,index);
-                                if ( [[contactInfoEntity valueForKey:@"contactInfo"] isEqualToString:aPhone] ) {
-                                    if ( contactRecord ) {
-                                        // TODO: Prompt the user!
-                                        NSLog(@"Multiple contacts match phone # for %@: %@", fullName, aPhone);
-                                    }
-                                    else {
-                                        contactRecord = person;
-                                    }
-                                    // Seems to match, back to outer for loop
-                                    break;
-                                }
-                            }
-                        }
+                    // Did not match, release
+                    if ( person != contactRecord ) {
+                        CFRelease(person);
                     }
                 }
+            }
 
-                // Did not match, release
-                if ( person != contactRecord ) {
-                    CFRelease(person);
+            if ( contactRecord ) {
+                [self syncContact:contact withABRecord:contactRecord];
+                CFRelease( contactRecord );
+            }
+            else {
+                // As below, we may need to display the contact as deleted from other teams one day
+
+                NSLog(@"Could not sync %@; deleting", contact);
+                [self showErrorMessage:[NSString stringWithFormat:@"Contact %@ appears to have been removed from your device, and will also be removed from TeamMail", [self getFullNameForContact:contact]
+                                        ]];
+                
+                for ( NSManagedObject * contactInfoEntity in [contact valueForKey:@"ContactInfos"] ) {
+                    for ( NSManagedObject * membership in [contactInfoEntity valueForKey:@"Memberships"] ) {
+                        [context deleteObject:membership];
+                    }
+                    [context deleteObject:contactInfoEntity];
                 }
+                [context deleteObject:contact];
             }
         }
-
-        if ( contactRecord ) {
-            [self syncContact:contact withABRecord:contactRecord];
-            CFRelease( contactRecord );
+        
+        [team setValue:[NSDate date] forKey:@"lastSynced"];
+        NSError * error = nil;
+        [context save:&error];
+        if ( error ) {
+            NSLog(@"Error syncing team: %@, %@", error, [error localizedDescription]);
+            [context rollback];
         }
-        else {
-            // As below, we may need to display the contact as deleted from other teams one day
+    };
 
-            NSLog(@"Could not sync %@; deleting", contact);
-            [self showErrorMessage:[NSString stringWithFormat:@"Contact %@ appears to have been removed from your device, and will also be removed from TeamMail", [self getFullNameForContact:contact]
-            ]];
-
-            for ( NSManagedObject * contactInfoEntity in [contact valueForKey:@"ContactInfos"] ) {
-                for ( NSManagedObject * membership in [contactInfoEntity valueForKey:@"Memberships"] ) {
-                    [context deleteObject:membership];
-                }
-                [context deleteObject:contactInfoEntity];
-            }
-            [context deleteObject:contact];
-        }
-    }
-
-    [team setValue:[NSDate date] forKey:@"lastSynced"];
-    NSError * error = nil;
-    [context save:&error];
-    if ( error ) {
-        NSLog(@"Error syncing team: %@, %@", error, [error localizedDescription]);
-        [context rollback];
-    }
+    [self ensureAddressBookAccessOnSuccess:onSuccess onFailure:^{}]; //Do nothing, no reason to sync
 }
 
 - (void)syncContact:(NSManagedObject *)contact withABRecord:(ABRecordRef)record {
