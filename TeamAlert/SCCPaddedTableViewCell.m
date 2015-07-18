@@ -31,15 +31,14 @@
     // Configure the view for the selected state
 }
 
+// Make the table cell smaller so there is a right margin
+// Doing this through insets causes the cell to stay the same width
+// And the margin to appear offscreen
 - (void)setFrame:(CGRect)frame {
-    CGFloat xMargin = .1 * frame.size.width;
-    CGFloat yMargin = .1 * frame.size.height;
+    CGFloat xInset = 10.f;
 
-    frame.origin.x   +=     xMargin;
-    frame.size.width -= 2 * xMargin;
-
-    frame.origin.y    +=     yMargin;
-    frame.size.height -= 2 * yMargin;
+    frame.origin.x   +=     xInset;
+    frame.size.width = self.superview.frame.size.width - 2.f * xInset;
 
     [super setFrame:frame];
 }

@@ -32,12 +32,13 @@ const int kPHONE_ACTION_INDEX = 1;
     [super awakeFromNib];
 }
 
+#pragma mark - Cell Display
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     // This is what looks good
-    [self.tableView setRowHeight:66.0f];
+    [self.tableView setRowHeight:54.0f];
     // Not sure why our other Table View Controllers don't need this...
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
@@ -54,6 +55,20 @@ const int kPHONE_ACTION_INDEX = 1;
     self.navigationItem.rightBarButtonItem = addButton;
  */
     self.detailViewController = (SCCDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    // Every section represents a team
+    // And every team needs some separation (margins)
+    return 10.f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -80,19 +95,19 @@ const int kPHONE_ACTION_INDEX = 1;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return _teams.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _teams.count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SCCPaddedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
-    NSManagedObject *team = _teams[indexPath.row];
+    NSManagedObject *team = _teams[indexPath.section];
     cell.textLabel.text = [team valueForKey:@"name"];
 
     if ( cell.accessoryView == nil ) {
@@ -103,7 +118,7 @@ const int kPHONE_ACTION_INDEX = 1;
         [(SCCAlertButton*)cell.accessoryView addTarget:self action:@selector(sendAlert:) forControlEvents:UIControlEventTouchUpInside];
     }
 
-    [cell.accessoryView setTag:indexPath.row];
+    [cell.accessoryView setTag:indexPath.section];
 
     return cell;
 }
@@ -118,11 +133,11 @@ const int kPHONE_ACTION_INDEX = 1;
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete an object form the database
-        NSManagedObject *team = [_teams objectAtIndex:indexPath.row];
+        NSManagedObject *team = [_teams objectAtIndex:indexPath.section];
         if ( [self deleteTeam:team]) {
             // And delete it from the UI
-            [_teams removeObjectAtIndex:indexPath.row];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [_teams removeObjectAtIndex:indexPath.section];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
 
             // Provide extra link to create first team
             [self.firstTeamView setHidden:[_teams count]];
@@ -149,7 +164,7 @@ const int kPHONE_ACTION_INDEX = 1;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        NSDate *team = _teams[indexPath.row];
+        NSDate *team = _teams[indexPath.section];
         self.detailViewController.detailItem = team;
     }
 }
@@ -165,7 +180,7 @@ const int kPHONE_ACTION_INDEX = 1;
         ];
 
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *team = _teams[indexPath.row];
+        NSDate *team = _teams[indexPath.section];
         [[segue destinationViewController] setDetailItem:team];
     }
 }

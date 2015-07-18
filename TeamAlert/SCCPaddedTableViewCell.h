@@ -10,6 +10,5 @@
 #import "SCCAlertButton.h"
 
 @interface SCCPaddedTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet SCCAlertButton *alertButton;
 
 @end
