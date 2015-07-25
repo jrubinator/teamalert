@@ -15,6 +15,7 @@
 		6118817C19A13C330044EEDC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6118817B19A13C330044EEDC /* MessageUI.framework */; };
 		6118817F19A8E4DB0044EEDC /* SCCAlertButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6118817E19A8E4DB0044EEDC /* SCCAlertButton.m */; };
 		612CDA20193BB8D4002178ED /* SCCNewTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */; };
+		614A1BF61B631E9700DCC128 /* TeamBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614A1BF51B631E9700DCC128 /* TeamBuilding.swift */; };
 		617089081958E40400EB23A3 /* SCCTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 617089071958E40400EB23A3 /* SCCTeamTableViewController.m */; };
 		6170890B195CF44900EB23A3 /* SCCViewTeamTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6170890A195CF44900EB23A3 /* SCCViewTeamTableViewController.m */; };
 		617C6EC9190C5EC20036D3DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6EC8190C5EC20036D3DD /* Foundation.framework */; };
@@ -32,7 +33,6 @@
 		617C6EEF190C5EC20036D3DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6EC8190C5EC20036D3DD /* Foundation.framework */; };
 		617C6EF0190C5EC20036D3DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 617C6ECC190C5EC20036D3DD /* UIKit.framework */; };
 		617C6EF8190C5EC20036D3DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 617C6EF6190C5EC20036D3DD /* InfoPlist.strings */; };
-		617C6EFA190C5EC20036D3DD /* TeamAlertTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */; };
 		61EDC584199C3F38006E07C7 /* alert-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EDC582199C3F38006E07C7 /* alert-button.png */; };
 		61EDC585199C3F38006E07C7 /* alert-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61EDC583199C3F38006E07C7 /* alert-button@2x.png */; };
 /* End PBXBuildFile section */
@@ -60,6 +60,8 @@
 		61232C4D19D4AA7D00CECB96 /* SCCErrorDisplayDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCErrorDisplayDelegate.h; sourceTree = "<group>"; };
 		612CDA1E193BB8D4002178ED /* SCCNewTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCNewTeamTableViewController.h; sourceTree = "<group>"; };
 		612CDA1F193BB8D4002178ED /* SCCNewTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCNewTeamTableViewController.m; sourceTree = "<group>"; };
+		614A1BF41B631E9700DCC128 /* TeamMailTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TeamMailTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		614A1BF51B631E9700DCC128 /* TeamBuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamBuilding.swift; sourceTree = "<group>"; };
 		617089061958E40400EB23A3 /* SCCTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCTeamTableViewController.h; sourceTree = "<group>"; };
 		617089071958E40400EB23A3 /* SCCTeamTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCCTeamTableViewController.m; sourceTree = "<group>"; };
 		61708909195CF44900EB23A3 /* SCCViewTeamTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCCViewTeamTableViewController.h; sourceTree = "<group>"; };
@@ -85,7 +87,6 @@
 		617C6EED190C5EC20036D3DD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		617C6EF5190C5EC20036D3DD /* TeamMailTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TeamMailTests-Info.plist"; sourceTree = "<group>"; };
 		617C6EF7190C5EC20036D3DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TeamAlertTests.m; sourceTree = "<group>"; };
 		61EBCFAA19D89A7D00B8D016 /* SCCDebug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCCDebug.h; sourceTree = "<group>"; };
 		61EDC582199C3F38006E07C7 /* alert-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-button.png"; sourceTree = "<group>"; };
 		61EDC583199C3F38006E07C7 /* alert-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alert-button@2x.png"; sourceTree = "<group>"; };
@@ -199,8 +200,9 @@
 		617C6EF3190C5EC20036D3DD /* TeamAlertTests */ = {
 			isa = PBXGroup;
 			children = (
-				617C6EF9190C5EC20036D3DD /* TeamAlertTests.m */,
 				617C6EF4190C5EC20036D3DD /* Supporting Files */,
+				614A1BF51B631E9700DCC128 /* TeamBuilding.swift */,
+				614A1BF41B631E9700DCC128 /* TeamMailTests-Bridging-Header.h */,
 			);
 			path = TeamAlertTests;
 			sourceTree = "<group>";
@@ -335,7 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				617C6EFA190C5EC20036D3DD /* TeamAlertTests.m in Sources */,
+				614A1BF61B631E9700DCC128 /* TeamBuilding.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +497,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamMail.app/TeamMail";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -507,7 +510,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "TeamAlertTests/TeamMailTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = TeamMailTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "TeamAlertTests/TeamMailTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -517,6 +523,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TeamMail.app/TeamMail";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -525,7 +532,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeamAlert/TeamMail-Prefix.pch";
 				INFOPLIST_FILE = "TeamAlertTests/TeamMailTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = TeamMailTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "TeamAlertTests/TeamMailTests-Bridging-Header.h";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
