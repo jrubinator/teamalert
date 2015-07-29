@@ -64,9 +64,51 @@
 
     // Configure the cell...
     NSManagedObject *member = [self.members objectAtIndex:indexPath.row];
-
+    NSManagedObject *team   = [self team];
     [cell.textLabel setText:[self getFullNameForContact:member]];
-    //[cell.detailTextLabel setText:[member valueForKey:@"phoneNumber"]];
+
+    NSMutableString *contactIndicators = [NSMutableString stringWithFormat:@""];
+
+    NSManagedObjectContext *context = [self managedObjectContext];
+    NSFetchRequest         *request = [NSFetchRequest fetchRequestWithEntityName:@"ContactInfo"];
+    [request setFetchLimit:1];
+    NSError * error;
+
+    NSPredicate * phonePredicate = [
+        NSPredicate predicateWithFormat:@"%K = %@ AND %K = %@ AND ANY memberships.team = %@",
+            @"contactType", @"phoneNumber",
+            @"contact",     member,
+                            team
+    ];
+    [request setPredicate:phonePredicate];
+
+    NSArray * phoneList = [context executeFetchRequest:request error:&error];
+    if ( error ) {
+        // Log error and keep going
+        NSLog(@"Cannot Retrieve Phone Contact Info! %@ %@", error, [error localizedDescription]);
+    }
+    else if ([phoneList count] > 0) {
+        [contactIndicators appendString:@"📞"];
+    }
+
+    NSPredicate * emailPredicate = [
+        NSPredicate predicateWithFormat:@"%K = %@ AND %K = %@ AND ANY memberships.team = %@",
+            @"contactType", @"email",
+            @"contact",     member,
+                            team
+    ];
+    [request setPredicate:emailPredicate];
+
+    NSArray * emailList = [context executeFetchRequest:request error:&error];
+    if ( error ) {
+        // Log error and keep going
+        NSLog(@"Cannot Retrieve Email Contact Info! %@ %@", error, [error localizedDescription]);
+    }
+    else if ([emailList count] > 0) {
+        [contactIndicators appendString:@"✉"];
+    }
+
+    [cell.detailTextLabel setText:contactIndicators];
 
     return cell;
 }
